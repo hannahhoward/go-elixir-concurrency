@@ -17,6 +17,7 @@ import {
 } from 'spectacle'
 
 import AboutMeSlide from './slideTemplates/about-me-slide.jsx'
+import AboutMeSlideAnna from './slideTemplates/about-me-slide-anna.jsx'
 import QuoteSlide from './slideTemplates/quote-slide.jsx'
 import DefinitionSlide from './slideTemplates/definition-slide.jsx'
 import ListSlide from './slideTemplates/list-slide.jsx'
@@ -33,6 +34,7 @@ import preloader from 'spectacle/lib/utils/preloader'
 preloader({})
 // Import theme
 import createTheme from 'spectacle/lib/themes/default'
+import aboutMeSlideAnna from './slideTemplates/about-me-slide-anna.jsx';
 
 // Require CSS
 require('normalize.css')
@@ -62,20 +64,10 @@ export default class Presentation extends React.Component {
             </p>
           </Notes>
         </AboutMeSlide>
-        <DefinitionSlide
-          fit={false}
-          term="Apples"
-          definition="A Large Round Red Fruit"
-        >
-          <Notes>
-            Definition slides have a large heading and small, longer text below,
-            usually used to define term.
-            <br />
-            fit=false specifies if the heading gets scaled and stretched to fit
-            on a single line
-          </Notes>
-        </DefinitionSlide>
+        <AboutMeSlideAnna ></AboutMeSlideAnna>
 
+
+{/*
         <ImageSlide
           title="Pooh Beard"
           image="poohbear.jpg"
@@ -86,11 +78,39 @@ export default class Presentation extends React.Component {
             text below <br />
             Images should live in assets/images to be picked up here
           </Notes>
-        </ImageSlide>
+        </ImageSlide> */}
+        <DefinitionSlide
+          fit={false}
+          term="Concurrency"
+          definition="Go vs. Elixir"
+        >
+          <Notes>
+            Definition slides have a large heading and small, longer text below,
+            usually used to define term.
+            <br />
+            fit=false specifies if the heading gets scaled and stretched to fit
+            on a single line
+          </Notes>
+        </DefinitionSlide>
+        <DefinitionSlide
+          fit={false}
+          term="Concurrency"
+          definition="the ability of different parts or units of a program,
+           algorithm, or problem to be executed out-of-order or in partial order,
+            without affecting the final outcome."
+        >
+          <Notes>
+            Definition slides have a large heading and small, longer text below,
+            usually used to define term.
+            <br />
+            fit=false specifies if the heading gets scaled and stretched to fit
+            on a single line
+          </Notes>
+        </DefinitionSlide>
         <SimpleSlide
           inverted
           fit={false}
-          statement="What is a computer program?"
+          statement="Where did this start?"
         >
           <Notes>
             <p>Simple slide is just a one line statement at heading size</p>
@@ -103,6 +123,37 @@ export default class Presentation extends React.Component {
             </p>
           </Notes>
         </SimpleSlide>
+        <DefinitionSlide
+          fit={false}
+          term="Concurrency"
+          definition="tIn the beginning, computers did not have operating systems and were
+          designed to execute a single program from beginning to end —
+          each program had access to all of the machine’s resources."
+        >
+          <Notes>
+            Definition slides have a large heading and small, longer text below,
+            usually used to define term.
+            <br />
+            fit=false specifies if the heading gets scaled and stretched to fit
+            on a single line
+          </Notes>
+        </DefinitionSlide>
+        <DefinitionSlide
+          fit={false}
+          term="Concurrency"
+          definition="Over time, operating systems evolved to
+          allow multiple programs to execute at once,
+          each within a process — an independently isolated program that
+          is assigned resources like memory, file handles, and security controls. "
+        >
+          <Notes>
+            Definition slides have a large heading and small, longer text below,
+            usually used to define term.
+            <br />
+            fit=false specifies if the heading gets scaled and stretched to fit
+            on a single line
+          </Notes>
+        </DefinitionSlide>
         <QuoteSlide
           quote="Fourscore and seven years ago"
           cite="Abraham Lincoln"
