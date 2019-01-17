@@ -7,6 +7,7 @@
  code[class*="language-"],
  pre[class*="language-"] {
    color: #9CDCFE;
+   background-color: "#04192A";
    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
    direction: ltr;
    text-align: left;
