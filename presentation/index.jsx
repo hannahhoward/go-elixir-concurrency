@@ -291,7 +291,7 @@ export default class Presentation extends React.Component {
           <Notes />
         </SimpleSlide>
 
-        <ImageSlide image="actor-model-mailbox.gif">
+        <ImageSlide image="actor-model-mailbox.png">
           <Notes>
             * The actor model is a conceptual model to deal with concurrent
             computation * It defines some general rules for how the system’s
@@ -299,7 +299,7 @@ export default class Presentation extends React.Component {
           </Notes>
         </ImageSlide>
 
-        <ImageSlide image="actor-model-mailbox.gif">
+        <ImageSlide image="actor-model-mailbox.png">
           <Notes>
             * An actor is the primitive unit of computation. * It’s
             the thing that receives a message and do some kind of computation
@@ -330,7 +330,7 @@ export default class Presentation extends React.Component {
           </Notes>
         </ImageSlide>
 
-        <ImageSlide image="messages-3.jpg">
+        <ImageSlide image="messages-3.png">
           <Notes>
             When an actor receives a message, it can do one of these 3 things: *
             Create more actors * Send messages to other actors * Designate what
@@ -365,7 +365,7 @@ export default class Presentation extends React.Component {
           <Notes />
         </SimpleSlide>
 
-        <ImageSlide image="messages-3.jpg">
+        <ImageSlide image="messages-3.png">
           <Notes>
             * Another interesting aspect of the actor model is that it doesn’t
             matter if the actor that I’m sending a message to is running locally
