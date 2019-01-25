@@ -287,6 +287,7 @@ export default class Presentation extends React.Component {
           ]}
         />
 
+
         <SimpleSlide inverted fit={false} statement="The Actor Model">
           <Notes />
         </SimpleSlide>
@@ -301,7 +302,8 @@ export default class Presentation extends React.Component {
 
         <ImageSlide image="actor-model-mailbox.png">
           <Notes>
-            * An actor is the primitive unit of computation. * It’s
+            * An actor is the primitive unit of computation.
+            * It’s
             the thing that receives a message and do some kind of computation
             based on it.
           </Notes>
@@ -309,13 +311,43 @@ export default class Presentation extends React.Component {
 
         <ImageSlide image="process.jpg">
           <Notes>
-            * In elixir this Actor unit is the process * It receives a message,
+            * In elixir this Actor unit is the process. Any code that runs in elixir runs in side of a process
+            * It receives a message,
             does some computation adn can maintain state * actors are completely
             isolated from each other and they will never share memory * It’s
             also worth noting that an actor can maintain a private state that
             can never be changed directly by another actor.
+            * Not an OS process
           </Notes>
         </ImageSlide>
+
+        <ListSlide
+          inverted
+          title="Proccesses"
+          list={['Light weight', 'Do not share memory', 'Are not OS processes',]}
+        >
+          <Notes>
+            <p>
+              Elixir(Erlang) priorities help explain choices made in the language
+            </p>
+            <p>
+              Elixir is designed to be easy to be scalable -- you can easily deal with increases
+              in load on your system. All code runs in processes.
+              Because each “process” does not take up a lot of processing power,
+              hundreds of thousands of programs could be running at the same time potentially on different computers.
+            </p>
+            <p>
+              When was the last time you dropped a phone call? -- Elixir(Erlang) introduces supervision which allows a process
+              within your app to to crash without your whole app crashing
+            </p>
+            <p>
+              Out of the box, erlang (and therefore Elixir) allows us to build applications to run in almost real time due to
+              efficiency of the runtime.
+            </p>
+          </Notes>
+        </ListSlide>
+
+
 
         <ImageSlide image="messages-2.jpg">
           <Notes>
@@ -365,6 +397,8 @@ export default class Presentation extends React.Component {
           <Notes />
         </SimpleSlide>
 
+
+
         <ImageSlide image="messages-3.png">
           <Notes>
             * Another interesting aspect of the actor model is that it doesn’t
@@ -377,6 +411,57 @@ export default class Presentation extends React.Component {
             one of them fail.
           </Notes>
         </ImageSlide>
+
+        <ListSlide
+          inverted
+          title="Elixir Priorities"
+          list={['Scalable', 'Fault Tolerant (Telco Strong)', 'Fast',]}
+        >
+          <Notes>
+            <p>
+              Elixir(Erlang) priorities help explain choices made in the language
+            </p>
+            <p>
+              Elixir is designed to be easy to be scalable -- you can easily deal with increases
+              in load on your system. All code runs in processes.
+              Because each “process” does not take up a lot of processing power,
+              hundreds of thousands of programs could be running at the same time potentially on different computers.
+            </p>
+            <p>
+              When was the last time you dropped a phone call? -- Elixir(Erlang) introduces supervision which allows a process
+              within your app to to crash without your whole app crashing
+            </p>
+            <p>
+              Out of the box, erlang (and therefore Elixir) allows us to build applications to run in almost real time due to
+              efficiency of the runtime.
+            </p>
+          </Notes>
+        </ListSlide>
+
+
+        <SimpleSlide inverted fit={false} statement="Looking at Elixir and The Actor Model">
+          <Notes>
+            Let's look at how the actor Model actually works in Elixir
+          </Notes>
+        </SimpleSlide>
+        <CodeSlide
+          bgColor={colors.quartenary}
+          notes={
+            <div>
+            </div>
+          }
+          lang="go"
+          code={require('raw-loader!../assets/blockchain.ex')}
+          ranges={[
+            { loc: [0, 3], title: 'Genserver in Elixir!' },
+            { loc: [11, 15], note: 'initialize' },
+            { loc: [16, 18], note: 'Make Asynchronous request' },
+            { loc: [34, 38], note: 'Callback' },
+            { loc: [95, 99], note: 'Distributed Elixir' },
+            { loc: [116, 124], note: 'Supervision' },
+          ]}
+        />
+
         <SimpleSlide statement="Go And CSP" />
 
         <DefinitionSlide
@@ -821,6 +906,7 @@ export default class Presentation extends React.Component {
         <ImageSlide title="No So Different After All?" image="tomato.jpg">
           <Notes>But are these really substantive differences?</Notes>
         </ImageSlide>
+
         <ListSlide
           inverted
           ordered={false}
@@ -842,6 +928,40 @@ export default class Presentation extends React.Component {
             '= Asynchronous Message Passing'
           ]}
         />
+          <DefinitionSlide
+          inverted
+          term="How do we implement channels in Elixir?"
+        />
+
+        <CodeSlide
+          bgColor={colors.quartenary}
+          notes={<div />}
+          lang="elixir"
+          code={require('raw-loader!../assets/channels.ex')}
+          ranges={[
+            { loc: [0, 5], title: 'Channels in Elixir' },
+            {
+              loc: [1, 8],
+              note: 'Defining a queue'
+            },
+            {
+              loc: [9, 15],
+              note: 'Adding to queue'
+            },
+            { loc: [16, 18], note: 'Blocking queue' },
+            { loc: [18, 21], note: 'Else Return value' },
+            { loc: [24, 26], note: 'Take from Queue' },
+            { loc: [26, 29], note: 'Block if empty' },
+            { loc: [29, 35], note: 'Else return' },
+            { loc: [38, 43], note: 'Create GenServer' },
+            { loc: [48, 52], note: 'Initialize Channel' },
+            { loc: [52, 59], note: 'Buffered channel' },
+            { loc: [60, 65], note: 'Put values in' },
+            { loc: [66, 71], note: 'Put values in' },
+
+          ]}
+        />
+
         <DefinitionSlide
           inverted
           term="Building An Unbounded Channel In Go"
