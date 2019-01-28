@@ -82,7 +82,14 @@ export default class Presentation extends React.Component {
             concurrency >{' '}
           </Notes>
         </ImageSlide>
-        <SimpleSlide inverted fit={false} statement="Where did this start?" />
+        <ImageSlide image="homer-computer.gif">
+          <Notes>
+            <p>Where did this start?</p>
+            <p>In the beginning, computers did not have operating systems and were
+            designed to execute a single program from beginning to end — each
+            program had access to all of the machine’s resources.</p>
+          </Notes>
+        </ImageSlide>
 
         <ImageSlide image="single-threaded.png">
           <Notes>
@@ -99,25 +106,37 @@ export default class Presentation extends React.Component {
             security controls.
           </Notes>
         </ImageSlide>
-        <ImageSlide image="concurrency-explained.jpg">
-          <Notes>
-            the ability of different parts or units of a program, algorithm, or
-            problem to be executed out-of-order or in partial order, without
-            affecting the final outcome. - * Concurrency: Concurrency is the
-            scheduling of work to happen over multiple processors (or multiple
-            nodes in a system). Concurrency implies that each unit of work is
-            continuously making progress. - * Parallelism: Parallelism happens
-            when at least two units of work are executing simultaneously. It’s
-            notable that you can support concurrency on a single processor
-            system using appropriate scheduling, while
-            parallelism requires multiple processors or systems.
-          </Notes>
-        </ImageSlide>
         <SimpleSlide inverted fit={false} statement="Let's break that down">
           <Notes />
         </SimpleSlide>
-        <ImageSlide image="os-processes.jpg">
-          <Notes />
+        <ImageSlide image="process-explained.jpg">
+          <Notes>
+            <ul>
+              <li>
+              Running the CPU is actually executing statements of this process. At any given instant, only one process can be running.
+              </li>
+              <li>
+              Ready the process is loaded into memory and runnable,
+              but is not actually running; the CPU is doing something else.
+              The set of processes which are ready to run but not running are often referred to
+              as being on the Ready Queue,
+              although the data structure which contains these may not be a simple queue.
+              </li>
+              <li>
+              Blocked the process is not runnable because it is waiting
+              for an event to occur. The usual event is that it is waiting
+               for an I/O operation to complete, but there are lots of other events as well. Most of the processes which were listed by the ps command or displayed by the Task Manager are in this state. Another term for blocked is sleeping.
+
+              </li>
+              <li>
+              You might wondering how 40 or more processes can be running at the same time.
+              This is a phenomenon called multiprogramming or multitasking and was developed by experimental and later commercial operating systems during the 1960s. At a particular instant in time, only one process can actually be running on a computer with only one CPU. However, the executable code for several processes is loaded into memory, and the processor switches rapidly between several jobs, giving the
+              illusion that several jobs are running at once. At the risk of oversimplifying,
+               a process can be in one of three states
+              </li>
+            </ul>
+
+          </Notes>
         </ImageSlide>
         <SimpleSlide
           inverted
@@ -171,17 +190,27 @@ export default class Presentation extends React.Component {
         <SimpleSlide
           inverted
           fit={false}
-          statement="share the same address space, file descriptors, stack and other process related attributes"
-        >
-          <Notes />
-        </SimpleSlide>
-        <SimpleSlide
-          inverted
-          fit={false}
           statement="threads of a process share the same memory"
         >
           <Notes />
         </SimpleSlide>
+
+        <ImageSlide image="concurrency-explained.jpg">
+          <Notes>
+            <p>the ability of different parts or units of a program, algorithm, or
+            problem to be executed out-of-order or in partial order, without
+            affecting the final outcome.</p>
+            <p> - * Concurrency: Concurrency is the
+            scheduling of work to happen over multiple processors (or multiple
+            nodes in a system). Concurrency implies that each unit of work is
+            continuously making progress. </p>
+            <p> - * Parallelism: Parallelism happens
+            when at least two units of work are executing simultaneously. It’s
+            notable that you can support concurrency on a single processor
+            system using appropriate scheduling, while
+            parallelism requires multiple processors or systems.</p>
+          </Notes>
+        </ImageSlide>
 
         <SimpleSlide
           inverted
@@ -194,20 +223,6 @@ export default class Presentation extends React.Component {
           inverted
           fit={false}
           statement="Concurrency:  implies that each unit of work is continuously making progress."
-        >
-          <Notes />
-        </SimpleSlide>
-        <SimpleSlide
-          inverted
-          fit={false}
-          statement="Process: A process is an instance of a computer program that is being executed"
-        >
-          <Notes />
-        </SimpleSlide>
-        <SimpleSlide
-          inverted
-          fit={false}
-          statement="Thread: Subset of a process that and shares memory"
         >
           <Notes />
         </SimpleSlide>
@@ -289,7 +304,9 @@ export default class Presentation extends React.Component {
 
 
         <SimpleSlide inverted fit={false} statement="The Actor Model">
-          <Notes />
+          <Notes>
+            Let's talk about how Erlang(Elixir) deal with concurrency
+          </Notes>
         </SimpleSlide>
 
         <ImageSlide image="actor-model-mailbox.png">
@@ -303,28 +320,15 @@ export default class Presentation extends React.Component {
         <ImageSlide image="actor-model-mailbox.png">
           <Notes>
             * An actor is the primitive unit of computation.
-            * It’s
-            the thing that receives a message and do some kind of computation
+            * It’s the thing that receives a message and do some kind of computation
             based on it.
-          </Notes>
-        </ImageSlide>
-
-        <ImageSlide image="process.jpg">
-          <Notes>
-            * In elixir this Actor unit is the process. Any code that runs in elixir runs in side of a process
-            * It receives a message,
-            does some computation adn can maintain state * actors are completely
-            isolated from each other and they will never share memory * It’s
-            also worth noting that an actor can maintain a private state that
-            can never be changed directly by another actor.
-            * Not an OS process
           </Notes>
         </ImageSlide>
 
         <ListSlide
           inverted
           title="Proccesses"
-          list={['Light weight', 'Do not share memory', 'Are not OS processes',]}
+          list={['Are not OS processes','Light weight', 'Do not share memory', 'Have a unique ID’' ,]}
         >
           <Notes>
             <p>
@@ -347,6 +351,20 @@ export default class Presentation extends React.Component {
           </Notes>
         </ListSlide>
 
+        <ImageSlide image="process.jpg">
+          <Notes>
+            * In elixir this Actor unit is the process. Any code that runs in elixir runs in side of a process
+            * It receives a message,
+            does some computation adn can maintain state * actors are completely
+            isolated from each other and they will never share memory * It’s
+            also worth noting that an actor can maintain a private state that
+            can never be changed directly by another actor.
+            * Not an OS process
+          </Notes>
+        </ImageSlide>
+
+
+
 
 
         <ImageSlide image="messages-2.jpg">
@@ -365,39 +383,37 @@ export default class Presentation extends React.Component {
         <ImageSlide image="messages-3.png">
           <Notes>
             When an actor receives a message, it can do one of these 3 things: *
-            Create more actors * Send messages to other actors * Designate what
-            to do with the next message
+             *  *
           </Notes>
         </ImageSlide>
+
+        <ListSlide
+          inverted
+          title="Actor can..."
+          list={['Create more actors','Send messages to other actors', 'Designate what to do with the next message']}
+        >
+          <Notes/>
+        </ListSlide>
 
         <SimpleSlide inverted fit={false} statement="Let it Crash">
           <Notes />
         </SimpleSlide>
 
-        <ImageSlide image="fault-tolerance.png">
-          <Notes>* fault tolerance</Notes>
-        </ImageSlide>
 
         <ImageSlide image="fault-tolerance.png">
           <Notes>
             * Each process is a unit and does not share memory * Specialized
             processes whose only job is to supervices other process - * and know
-            how to spin child processes up when they die
+            how to spin child processes up when they die. Effectively allowing us to build self-healing systems
           </Notes>
         </ImageSlide>
         <ImageSlide image="fault-tolerance-harry-potter.gif">
           <Notes>*</Notes>
         </ImageSlide>
 
-        <ImageSlide image="fault-tolerance.png">
-          <Notes>* Build self-healing systems</Notes>
-        </ImageSlide>
-
         <SimpleSlide inverted fit={false} statement="Distributed Elixir">
           <Notes />
         </SimpleSlide>
-
-
 
         <ImageSlide image="messages-3.png">
           <Notes>
@@ -438,29 +454,30 @@ export default class Presentation extends React.Component {
           </Notes>
         </ListSlide>
 
-
-        <SimpleSlide inverted fit={false} statement="Looking at Elixir and The Actor Model">
-          <Notes>
-            Let's look at how the actor Model actually works in Elixir
-          </Notes>
+        <SimpleSlide inverted fit={false} statement="The BEAM">
+          <Notes />
         </SimpleSlide>
-        <CodeSlide
-          bgColor={colors.quartenary}
-          notes={
-            <div>
-            </div>
-          }
-          lang="go"
-          code={require('raw-loader!../assets/blockchain.ex')}
-          ranges={[
-            { loc: [0, 3], title: 'Genserver in Elixir!' },
-            { loc: [11, 15], note: 'initialize' },
-            { loc: [16, 18], note: 'Make Asynchronous request' },
-            { loc: [34, 38], note: 'Callback' },
-            { loc: [95, 99], note: 'Distributed Elixir' },
-            { loc: [116, 124], note: 'Supervision' },
-          ]}
-        />
+
+        <SimpleSlide inverted fit={false} statement="Preemptive scheduling">
+          <Notes />
+        </SimpleSlide>
+
+
+        <ImageSlide image="erlang-vm.jpg">
+          <Notes>
+            <p>Preemptive: A preemptive scheduler does context switching among running tasks and
+              has the power to preempt (interrupt) tasks and resume them at a later time
+              without the cooperation of the preempted task
+              This is done based on some factors like their priority or reductions.</p>
+              <p>
+              The factor of selecting a process for execution is based on their priority level which
+              is configurable per process and in each priority level processes are scheduled in a round robin fashion.
+              On the other hand the factor of preempting a process from execution is based on a certain number of Reductions
+              since the last time it was selected for execution, regardless of its priority level. The reduction is a counter per process that is normally incremented by one for each function call. It is used for preempting processes and context switching
+              them when the counter of a process reaches the maximum number of reductions.
+              </p>
+          </Notes>
+        </ImageSlide>
 
         <SimpleSlide statement="Go And CSP" />
 
@@ -928,39 +945,6 @@ export default class Presentation extends React.Component {
             '= Asynchronous Message Passing'
           ]}
         />
-          <DefinitionSlide
-          inverted
-          term="How do we implement channels in Elixir?"
-        />
-
-        <CodeSlide
-          bgColor={colors.quartenary}
-          notes={<div />}
-          lang="elixir"
-          code={require('raw-loader!../assets/channels.ex')}
-          ranges={[
-            { loc: [0, 5], title: 'Channels in Elixir' },
-            {
-              loc: [1, 8],
-              note: 'Defining a queue'
-            },
-            {
-              loc: [9, 15],
-              note: 'Adding to queue'
-            },
-            { loc: [16, 18], note: 'Blocking queue' },
-            { loc: [18, 21], note: 'Else Return value' },
-            { loc: [24, 26], note: 'Take from Queue' },
-            { loc: [26, 29], note: 'Block if empty' },
-            { loc: [29, 35], note: 'Else return' },
-            { loc: [38, 43], note: 'Create GenServer' },
-            { loc: [48, 52], note: 'Initialize Channel' },
-            { loc: [52, 59], note: 'Buffered channel' },
-            { loc: [60, 65], note: 'Put values in' },
-            { loc: [66, 71], note: 'Put values in' },
-
-          ]}
-        />
 
         <DefinitionSlide
           inverted
@@ -994,6 +978,43 @@ export default class Presentation extends React.Component {
             { loc: [56, 67], note: 'Message handlers' }
           ]}
         />
+
+<DefinitionSlide
+          inverted
+          term="How do we implement channels in Elixir?"
+        />
+
+        <CodeSlide
+          bgColor={colors.quartenary}
+          notes={<div />}
+          lang="elixir"
+          code={require('raw-loader!../assets/channels.ex')}
+          ranges={[
+            { loc: [0, 5], title: 'Channels in Elixir' },
+            {
+              loc: [1, 8],
+              note: 'Defining a queue'
+            },
+            {
+              loc: [9, 15],
+              note: 'Adding to queue'
+            },
+            { loc: [15, 18], note: 'return if buffered' },
+            { loc: [18, 22], note: 'Else Return value' },
+            { loc: [24, 26], note: 'Take from Queue' },
+            { loc: [26, 28], note: 'return if empty' },
+            { loc: [28, 35], note: 'Else return new queue' },
+            { loc: [38, 45], note: 'Create GenServer' },
+            { loc: [48, 51], note: 'Initialize Channel' },
+            { loc: [52, 59], note: 'Buffered channel' },
+            { loc: [60, 64], note: 'blocking response if no value' },
+            { loc: [64, 68], note: 'return updated queue' },
+            { loc: [69, 74], note: 'block if queue full' },
+            { loc: [74, 79], note: 'return when queue updated'},
+
+          ]}
+        />
+
         <SimpleSlide statement="Conclusions" />
         <ConceptSlide
           inverted
@@ -1006,6 +1027,12 @@ export default class Presentation extends React.Component {
           fit={false}
           statement="We don't always choose our language."
         />
+
+        <SimpleSlide
+                  inverted
+                  fit={false}
+                  statement="Choice of lanuage is one of many decisions we must make"
+                />
         <ImageSlide
           title="Thank you!"
           image="poohbear.jpg"

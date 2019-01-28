@@ -15,7 +15,7 @@ defmodule ElixirConurrency.Queue do
       }
       { que, len, max_size } ->
         if len == max_size do
-            ElixirConcurrency.Queue.in(bounded_queue)
+          {:buffered, queue}
         else
           {:ok, { :queue.in(item, queue),
             len + 1, max}
@@ -25,7 +25,7 @@ defmodule ElixirConurrency.Queue do
   def take(bounded_queue) do
     {queue, len, max, buffer} = bounded_queue
     if len == 0 do
-  ElixirConcurrency.Queue.take(bounded_queue);
+      {:empty, queue}
     else
       {{ :value, item }, new_queue } =
       :queue.out(queue)
@@ -58,15 +58,22 @@ defmodule ElixirConcurrency.Server do
     end
   end
 
-  def handle_call(:out, {queue}) do
-    {{:value, {item, new_queue, size,
-    buffer_type}} =  Queue.take(queue) do
-    {:reply, {item, new_queue}, { new_queue }}
+  def handle_call({:out, queue}, from, state) do
+   case Queue.take(queue) do
+    {:empty, _ } ->
+      {:noreply, state}
+    {{:value, {item, new_queue, size, buffer_type}} ->
+      {:reply, {item, new_queue}, { new_queue }}
     end
   end
 
   def handle_call(:in, {queue, value}) do
-    new_queue =  Queue.in(queue, value)
-    {:reply, queue, queue}
+    case Queue.in(queue, value) do
+      {:buffered, queue } ->
+        {:noreply, queue}
+
+      {{:ok, queue}, len, max_length} ->
+        {:reply, queue, queue}
+    end
   end
 end
