@@ -17,6 +17,7 @@ import {
 } from 'spectacle'
 
 import AboutMeSlide from './slideTemplates/about-me-slide.jsx'
+import AboutMeSlideAnna from './slideTemplates/about-me-slide-anna.jsx'
 import QuoteSlide from './slideTemplates/quote-slide.jsx'
 import DefinitionSlide from './slideTemplates/definition-slide.jsx'
 import ListSlide from './slideTemplates/list-slide.jsx'
@@ -33,6 +34,7 @@ import preloader from 'spectacle/lib/utils/preloader'
 preloader({})
 // Import theme
 import createTheme from 'spectacle/lib/themes/default'
+import aboutMeSlideAnna from './slideTemplates/about-me-slide-anna.jsx'
 
 // Require CSS
 require('normalize.css')
@@ -62,6 +64,196 @@ export default class Presentation extends React.Component {
             </p>
           </Notes>
         </AboutMeSlide>
+        <AboutMeSlideAnna />
+        <DefinitionSlide
+          inverted
+          fit={false}
+          term="Concurrency"
+          definition="Go vs. Elixir"
+        ><Notes>
+          <p>So the motivation for this talk came from a many conversatiosn both Hannah and I have
+          had about concurrency - where Go and Elixir are often thrown into the conversation as
+          options. And while both do allow for concurrency as with everything there are tradeoffs</p>
+        </Notes>
+        </DefinitionSlide>
+        <ImageSlide image="tradeoffs.png">
+          <Notes></Notes>
+        </ImageSlide>
+        <ImageSlide image="go-vs-elixir.jpg">
+          <Notes>
+            And when we are looking Go vs Elixir what we are really looking at
+            today are the concurrency models of the the two. And we are not
+            really talking about one versus the other. In this case we are comparing. The
+            actor model in Erlang(Elixir) vs Communicating Sequential Processes in Go. But before we
+            talk about that - let's take a look at how we might define
+            concurrency >{' '}
+          </Notes>
+        </ImageSlide>
+        <ImageSlide image="homer-computer.gif">
+          <Notes>
+            <p>Where did this start?</p>
+          </Notes>
+        </ImageSlide>
+
+        <ImageSlide image="single-threaded.png">
+          <Notes>
+            <p>In the beginning, computers did not have operating systems and were
+            designed to execute a single program from beginning to end — each
+            pro´gram had access to all of the machine’s resources.</p>
+          </Notes>
+        </ImageSlide>
+        <ImageSlide image="multi-threaded.png">
+          <Notes>
+            Over time, operating systems evolved to allow multiple programs to
+            execute at once, each within a process — an independently isolated
+            program that is assigned resources like memory, file handles, and
+            security controls.
+          </Notes>
+        </ImageSlide>
+        <SimpleSlide inverted fit={false} statement="Let's break that down">
+          <Notes />
+        </SimpleSlide>
+        <ImageSlide image="process-explained.jpg">
+          <Notes>
+            <ul>
+              <li>
+              Running the CPU is actually executing statements of this process. At any given instant, only one process can be running.
+              </li>
+              <li>
+              Ready the process is loaded into memory and runnable,
+              but is not actually running; the CPU is doing something else.
+              The set of processes which are ready to run but not running are often referred to
+              as being on the Ready Queue,
+              although the data structure which contains these may not be a simple queue.
+              </li>
+              <li>
+              Blocked the process is not runnable because it is waiting
+              for an event to occur. The usual event is that it is waiting
+               for an I/O operation to complete, but there are lots of other events as well. Most of the processes which were listed by the ps command or displayed by the Task Manager are in this state. Another term for blocked is sleeping.
+
+              </li>
+              <li>
+              You might wondering how 40 or more processes can be running at the same time.
+              This is a phenomenon called multiprogramming or multitasking and was developed by experimental and later commercial operating systems during the 1960s. At a particular instant in time, only one process can actually be running on a computer with only one CPU. However, the executable code for several processes is loaded into memory, and the processor switches rapidly between several jobs, giving the
+              illusion that several jobs are running at once. At the risk of oversimplifying,
+               a process can be in one of three states
+              </li>
+            </ul>
+
+          </Notes>
+        </ImageSlide>
+        <SimpleSlide
+          inverted
+          fit={false}
+          statement="An executing instance of a program is called a process"
+        >
+          <Notes />
+        </SimpleSlide>
+        <SimpleSlide
+          inverted
+          fit={false}
+          statement="A process is always stored in the main memory"
+        >
+          <Notes />
+        </SimpleSlide>
+        <SimpleSlide
+          inverted
+          fit={false}
+          statement="On a multiprocessor system, multiple processes can be executed in parallel"
+        >
+          <Notes />
+        </SimpleSlide>
+
+        <ImageSlide image="calculator.gif">
+          <Notes>
+            - * Example: Executing multiple instances of the ‘Calculator’
+            program. Each of the instances are termed as a process.
+          </Notes>
+        </ImageSlide>
+
+        <SimpleSlide inverted fit={false} statement="Ok, so what is a thread?">
+          <Notes />
+        </SimpleSlide>
+
+        <ImageSlide image="threads.png">
+          <Notes>
+            * A thread is a subset of the process. * It is termed as a
+            ‘lightweight process’, since it is similar to a real process but
+            executes within the context of a process and shares the same
+            resources allotted to the process by the kernel.
+          </Notes>
+        </ImageSlide>
+
+        <SimpleSlide
+          inverted
+          fit={false}
+          statement="A thread is a subset of the process"
+        >
+          <Notes />
+        </SimpleSlide>
+        <SimpleSlide
+          inverted
+          fit={false}
+          statement="threads of a process share the same memory"
+        >
+          <Notes />
+        </SimpleSlide>
+
+        <ImageSlide image="concurrency-explained.jpg">
+          <Notes>
+            <p>the ability of different parts or units of a program, algorithm, or
+            problem to be executed out-of-order or in partial order, without
+            affecting the final outcome.</p>
+            <p> - * Concurrency: Concurrency is the
+            scheduling of work to happen over multiple processors (or multiple
+            nodes in a system). Concurrency implies that each unit of work is
+            continuously making progress. </p>
+            <p> - * Parallelism: Parallelism happens
+            when at least two units of work are executing simultaneously. It’s
+            notable that you can support concurrency on a single processor
+            system using appropriate scheduling, while
+            parallelism requires multiple processors or systems.</p>
+          </Notes>
+        </ImageSlide>
+
+        <SimpleSlide
+          inverted
+          fit={false}
+          statement="Concurrency: scheduling of work to happen over multiple processors"
+        >
+          <Notes />
+        </SimpleSlide>
+        <SimpleSlide
+          inverted
+          fit={false}
+          statement="Concurrency:  implies that each unit of work is continuously making progress."
+        >
+          <Notes />
+        </SimpleSlide>
+        <ConceptSlide description="So why do we care about concurrency?">
+          <Notes>
+            * Concurrency provides a natural method for composing asynchronous
+            code. concept is normal text while the description is header text
+            below
+          </Notes>
+        </ConceptSlide>
+        <ImageSlide image="asynchronous.gif">
+          <Notes>
+            * Concurrency provides a natural method for composing asynchronous
+            code. * Concurrency allows your program to avoid blocking user
+            operations. * Concurrency provides one of the easiest ways take
+            advantage of multi core systems..
+          </Notes>
+        </ImageSlide>
+
+        <QuoteSlide
+          quote="“Make it work, then make it beautiful, then if you really, really have to, make it fast.
+          90 percent of the time, if you make it beautiful, it will already be fast. So really, just make it beautiful!”"
+          cite="Joe Armstrong"
+        >
+          <Notes>Who is familiar with Joe Armstrong</Notes>
+        </QuoteSlide>
+
         <ConceptSlide
           fit={false}
           inverted
@@ -113,7 +305,186 @@ export default class Presentation extends React.Component {
             'Expontential complexity to manage'
           ]}
         />
+
+
+        <SimpleSlide inverted fit={false} statement="The Actor Model">
+          <Notes>
+            Let's talk about how Erlang(Elixir) deal with concurrency
+          </Notes>
+        </SimpleSlide>
+
+        <ImageSlide image="actor-model-mailbox.png">
+          <Notes>
+            * The actor model is a conceptual model to deal with concurrent
+            computation * It defines some general rules for how the system’s
+            components should behave and interact with each other.
+          </Notes>
+        </ImageSlide>
+
+        <ImageSlide image="actor-model-mailbox.png">
+          <Notes>
+            * An actor is the primitive unit of computation.
+            * It’s the thing that receives a message and do some kind of computation
+            based on it.
+          </Notes>
+        </ImageSlide>
+
+        <ListSlide
+          inverted
+          title="Proccesses"
+          list={['Are not OS processes','Light weight', 'Do not share memory', 'Have a unique ID’' ,]}
+        >
+          <Notes>
+            <p>
+              Elixir(Erlang) priorities help explain choices made in the language
+            </p>
+            <p>
+              Elixir is designed to be easy to be scalable -- you can easily deal with increases
+              in load on your system. All code runs in processes.
+              Because each “process” does not take up a lot of processing power,
+              hundreds of thousands of programs could be running at the same time potentially on different computers.
+            </p>
+            <p>
+              When was the last time you dropped a phone call? -- Elixir(Erlang) introduces supervision which allows a process
+              within your app to to crash without your whole app crashing
+            </p>
+            <p>
+              Out of the box, erlang (and therefore Elixir) allows us to build applications to run in almost real time due to
+              efficiency of the runtime.
+            </p>
+          </Notes>
+        </ListSlide>
+
+        <ImageSlide image="process.jpg">
+          <Notes>
+            * In elixir this Actor unit is the process. Any code that runs in elixir runs in side of a process
+            * It receives a message,
+            does some computation adn can maintain state * actors are completely
+            isolated from each other and they will never share memory * It’s
+            also worth noting that an actor can maintain a private state that
+            can never be changed directly by another actor.
+            * Not an OS process
+          </Notes>
+        </ImageSlide>
+
+
+
+
+
+        <ImageSlide image="messages-2.jpg">
+          <Notes>
+            * In the actor model everything is an actor and they need to have
+            addresses so one actor can send a message to another. * multiple
+            actors can run at the same time, an actor will process a given
+            message sequentially. * 3 messages being executed concurrently, you
+            need to create 3 actors and send one message to each. * Messages are
+            sent asynchronously to an actor, that needs to store them somewhere
+            while it’s processing another message. The mailbox is the place
+            where these messages are stored.
+          </Notes>
+        </ImageSlide>
+
+        <ImageSlide image="messages-3.png">
+          <Notes>
+            When an actor receives a message, it can do one of these 3 things: *
+             *  *
+          </Notes>
+        </ImageSlide>
+
+        <ListSlide
+          inverted
+          title="Actor can..."
+          list={['Create more actors','Send messages to other actors', 'Designate what to do with the next message']}
+        >
+          <Notes/>
+        </ListSlide>
+
+        <SimpleSlide inverted fit={false} statement="Let it Crash">
+          <Notes />
+        </SimpleSlide>
+
+
+        <ImageSlide image="fault-tolerance.png">
+          <Notes>
+            * Each process is a unit and does not share memory * Specialized
+            processes whose only job is to supervices other process - * and know
+            how to spin child processes up when they die. Effectively allowing us to build self-healing systems
+          </Notes>
+        </ImageSlide>
+        <ImageSlide image="fault-tolerance-harry-potter.gif">
+          <Notes>*</Notes>
+        </ImageSlide>
+
+        <SimpleSlide inverted fit={false} statement="Distributed Elixir">
+          <Notes />
+        </SimpleSlide>
+
+        <ImageSlide image="messages-3.png">
+          <Notes>
+            * Another interesting aspect of the actor model is that it doesn’t
+            matter if the actor that I’m sending a message to is running locally
+            or in another node * if an actor is just this unit of code with a
+            mailbox and an internal state, and it just respond to messages, who
+            cares in which machine it’s actually running? As long as we can make
+            the message get there we are fine. * This allows us to create
+            systems that leverage multiple computers and helps us to recover if
+            one of them fail.
+          </Notes>
+        </ImageSlide>
+
+        <ListSlide
+          inverted
+          title="Elixir Priorities"
+          list={['Scalable', 'Fault Tolerant (Telco Strong)', 'Fast',]}
+        >
+          <Notes>
+            <p>
+              Elixir(Erlang) priorities help explain choices made in the language
+            </p>
+            <p>
+              Elixir is designed to be easy to be scalable -- you can easily deal with increases
+              in load on your system. All code runs in processes.
+              Because each “process” does not take up a lot of processing power,
+              hundreds of thousands of programs could be running at the same time potentially on different computers.
+            </p>
+            <p>
+              When was the last time you dropped a phone call? -- Elixir(Erlang) introduces supervision which allows a process
+              within your app to to crash without your whole app crashing
+            </p>
+            <p>
+              Out of the box, erlang (and therefore Elixir) allows us to build applications to run in almost real time due to
+              efficiency of the runtime.
+            </p>
+          </Notes>
+        </ListSlide>
+
+        <SimpleSlide inverted fit={false} statement="The BEAM">
+          <Notes />
+        </SimpleSlide>
+
+        <SimpleSlide inverted fit={false} statement="Preemptive scheduling">
+          <Notes />
+        </SimpleSlide>
+
+
+        <ImageSlide image="erlang-vm.jpg">
+          <Notes>
+            <p>Preemptive: A preemptive scheduler does context switching among running tasks and
+              has the power to preempt (interrupt) tasks and resume them at a later time
+              without the cooperation of the preempted task
+              This is done based on some factors like their priority or reductions.</p>
+              <p>
+              The factor of selecting a process for execution is based on their priority level which
+              is configurable per process and in each priority level processes are scheduled in a round robin fashion.
+              On the other hand the factor of preempting a process from execution is based on a certain number of Reductions
+              since the last time it was selected for execution, regardless of its priority level. The reduction is a counter per process that is normally incremented by one for each function call. It is used for preempting processes and context switching
+              them when the counter of a process reaches the maximum number of reductions.
+              </p>
+          </Notes>
+        </ImageSlide>
+
         <SimpleSlide statement="Go And CSP" />
+
         <DefinitionSlide
           inverted
           fit={false}
@@ -556,6 +927,7 @@ export default class Presentation extends React.Component {
         <ImageSlide title="No So Different After All?" image="tomato.jpg">
           <Notes>But are these really substantive differences?</Notes>
         </ImageSlide>
+
         <ListSlide
           inverted
           ordered={false}
@@ -577,6 +949,7 @@ export default class Presentation extends React.Component {
             '= Asynchronous Message Passing'
           ]}
         />
+
         <DefinitionSlide
           inverted
           term="Building An Unbounded Channel In Go"
@@ -609,6 +982,43 @@ export default class Presentation extends React.Component {
             { loc: [56, 67], note: 'Message handlers' }
           ]}
         />
+
+<DefinitionSlide
+          inverted
+          term="How do we implement channels in Elixir?"
+        />
+
+        <CodeSlide
+          bgColor={colors.quartenary}
+          notes={<div />}
+          lang="elixir"
+          code={require('raw-loader!../assets/channels.ex')}
+          ranges={[
+            { loc: [0, 5], title: 'Channels in Elixir' },
+            {
+              loc: [1, 8],
+              note: 'Defining a queue'
+            },
+            {
+              loc: [9, 15],
+              note: 'Adding to queue'
+            },
+            { loc: [15, 18], note: 'return if buffered' },
+            { loc: [18, 22], note: 'Else Return value' },
+            { loc: [24, 26], note: 'Take from Queue' },
+            { loc: [26, 28], note: 'return if empty' },
+            { loc: [28, 35], note: 'Else return new queue' },
+            { loc: [38, 45], note: 'Create GenServer' },
+            { loc: [48, 51], note: 'Initialize Channel' },
+            { loc: [52, 59], note: 'Buffered channel' },
+            { loc: [60, 64], note: 'blocking response if no value' },
+            { loc: [64, 68], note: 'return updated queue' },
+            { loc: [69, 74], note: 'block if queue full' },
+            { loc: [74, 79], note: 'return when queue updated'},
+
+          ]}
+        />
+
         <SimpleSlide statement="Conclusions" />
         <ConceptSlide
           inverted
@@ -621,6 +1031,12 @@ export default class Presentation extends React.Component {
           fit={false}
           statement="We don't always choose our language."
         />
+
+        <SimpleSlide
+                  inverted
+                  fit={false}
+                  statement="Choice of lanuage is one of many decisions we must make"
+                />
         <ImageSlide
           title="Thank you!"
           image="poohbear.jpg"
