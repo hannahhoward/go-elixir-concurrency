@@ -64,29 +64,33 @@ export default class Presentation extends React.Component {
             </p>
           </Notes>
         </AboutMeSlide>
-        <AboutMeSlideAnna />
-        <DefinitionSlide
-          inverted
+        <DoubleImageSlide
           fit={false}
-          term="Concurrency"
-          definition="Go vs. Elixir"
-        ><Notes>
-          <p>So the motivation for this talk came from a many conversatiosn both Hannah and I have
-          had about concurrency - where Go and Elixir are often thrown into the conversation as
-          options. And while both do allow for concurrency as with everything there are tradeoffs</p>
-        </Notes>
-        </DefinitionSlide>
+          image1="elixir_logo.png"
+          image2="gophercolor.png"
+          title="Go vs. Elixir"
+          text="A Concurrency Comparison"
+        >
+          <Notes>
+            <p>
+              So the motivation for this talk came from a many conversatiosn
+              both Hannah and I have had about concurrency - where Go and Elixir
+              are often thrown into the conversation as options. And while both
+              do allow for concurrency as with everything there are tradeoffs
+            </p>
+          </Notes>
+        </DoubleImageSlide>
         <ImageSlide image="tradeoffs.png">
-          <Notes></Notes>
+          <Notes />
         </ImageSlide>
         <ImageSlide image="go-vs-elixir.jpg">
           <Notes>
             And when we are looking Go vs Elixir what we are really looking at
             today are the concurrency models of the the two. And we are not
-            really talking about one versus the other. In this case we are comparing. The
-            actor model in Erlang(Elixir) vs Communicating Sequential Processes in Go. But before we
-            talk about that - let's take a look at how we might define
-            concurrency >{' '}
+            really talking about one versus the other. In this case we are
+            comparing. The actor model in Erlang(Elixir) vs Communicating
+            Sequential Processes in Go. But before we talk about that - let's
+            take a look at how we might define concurrency >{' '}
           </Notes>
         </ImageSlide>
         <ImageSlide image="homer-computer.gif">
@@ -97,9 +101,11 @@ export default class Presentation extends React.Component {
 
         <ImageSlide image="single-threaded.png">
           <Notes>
-            <p>In the beginning, computers did not have operating systems and were
-            designed to execute a single program from beginning to end — each
-            pro´gram had access to all of the machine’s resources.</p>
+            <p>
+              In the beginning, computers did not have operating systems and
+              were designed to execute a single program from beginning to end —
+              each pro´gram had access to all of the machine’s resources.
+            </p>
           </Notes>
         </ImageSlide>
         <ImageSlide image="multi-threaded.png">
@@ -113,33 +119,41 @@ export default class Presentation extends React.Component {
         <SimpleSlide inverted fit={false} statement="Let's break that down">
           <Notes />
         </SimpleSlide>
-        <ImageSlide image="process-explained.jpg">
+        <ImageSlide inverted image="process-explained.jpg">
           <Notes>
             <ul>
               <li>
-              Running the CPU is actually executing statements of this process. At any given instant, only one process can be running.
+                Running the CPU is actually executing statements of this
+                process. At any given instant, only one process can be running.
               </li>
               <li>
-              Ready the process is loaded into memory and runnable,
-              but is not actually running; the CPU is doing something else.
-              The set of processes which are ready to run but not running are often referred to
-              as being on the Ready Queue,
-              although the data structure which contains these may not be a simple queue.
+                Ready the process is loaded into memory and runnable, but is not
+                actually running; the CPU is doing something else. The set of
+                processes which are ready to run but not running are often
+                referred to as being on the Ready Queue, although the data
+                structure which contains these may not be a simple queue.
               </li>
               <li>
-              Blocked the process is not runnable because it is waiting
-              for an event to occur. The usual event is that it is waiting
-               for an I/O operation to complete, but there are lots of other events as well. Most of the processes which were listed by the ps command or displayed by the Task Manager are in this state. Another term for blocked is sleeping.
-
+                Blocked the process is not runnable because it is waiting for an
+                event to occur. The usual event is that it is waiting for an I/O
+                operation to complete, but there are lots of other events as
+                well. Most of the processes which were listed by the ps command
+                or displayed by the Task Manager are in this state. Another term
+                for blocked is sleeping.
               </li>
               <li>
-              You might wondering how 40 or more processes can be running at the same time.
-              This is a phenomenon called multiprogramming or multitasking and was developed by experimental and later commercial operating systems during the 1960s. At a particular instant in time, only one process can actually be running on a computer with only one CPU. However, the executable code for several processes is loaded into memory, and the processor switches rapidly between several jobs, giving the
-              illusion that several jobs are running at once. At the risk of oversimplifying,
-               a process can be in one of three states
+                You might wondering how 40 or more processes can be running at
+                the same time. This is a phenomenon called multiprogramming or
+                multitasking and was developed by experimental and later
+                commercial operating systems during the 1960s. At a particular
+                instant in time, only one process can actually be running on a
+                computer with only one CPU. However, the executable code for
+                several processes is loaded into memory, and the processor
+                switches rapidly between several jobs, giving the illusion that
+                several jobs are running at once. At the risk of
+                oversimplifying, a process can be in one of three states
               </li>
             </ul>
-
           </Notes>
         </ImageSlide>
         <SimpleSlide
@@ -164,7 +178,7 @@ export default class Presentation extends React.Component {
           <Notes />
         </SimpleSlide>
 
-        <ImageSlide image="calculator.gif">
+        <ImageSlide inverted image="calculator.gif">
           <Notes>
             - * Example: Executing multiple instances of the ‘Calculator’
             program. Each of the instances are termed as a process.
@@ -175,7 +189,7 @@ export default class Presentation extends React.Component {
           <Notes />
         </SimpleSlide>
 
-        <ImageSlide image="threads.png">
+        <ImageSlide inverted image="threads.png">
           <Notes>
             * A thread is a subset of the process. * It is termed as a
             ‘lightweight process’, since it is similar to a real process but
@@ -199,20 +213,28 @@ export default class Presentation extends React.Component {
           <Notes />
         </SimpleSlide>
 
-        <ImageSlide image="concurrency-explained.jpg">
+        <ImageSlide inverted image="concurrency-explained.jpg">
           <Notes>
-            <p>the ability of different parts or units of a program, algorithm, or
-            problem to be executed out-of-order or in partial order, without
-            affecting the final outcome.</p>
-            <p> - * Concurrency: Concurrency is the
-            scheduling of work to happen over multiple processors (or multiple
-            nodes in a system). Concurrency implies that each unit of work is
-            continuously making progress. </p>
-            <p> - * Parallelism: Parallelism happens
-            when at least two units of work are executing simultaneously. It’s
-            notable that you can support concurrency on a single processor
-            system using appropriate scheduling, while
-            parallelism requires multiple processors or systems.</p>
+            <p>
+              the ability of different parts or units of a program, algorithm,
+              or problem to be executed out-of-order or in partial order,
+              without affecting the final outcome.
+            </p>
+            <p>
+              {' '}
+              - * Concurrency: Concurrency is the scheduling of work to happen
+              over multiple processors (or multiple nodes in a system).
+              Concurrency implies that each unit of work is continuously making
+              progress.{' '}
+            </p>
+            <p>
+              {' '}
+              - * Parallelism: Parallelism happens when at least two units of
+              work are executing simultaneously. It’s notable that you can
+              support concurrency on a single processor system using appropriate
+              scheduling, while parallelism requires multiple processors or
+              systems.
+            </p>
           </Notes>
         </ImageSlide>
 
@@ -230,14 +252,14 @@ export default class Presentation extends React.Component {
         >
           <Notes />
         </SimpleSlide>
-        <ConceptSlide description="So why do we care about concurrency?">
+        <SimpleSlide inverted statement="So why do we care about concurrency?">
           <Notes>
             * Concurrency provides a natural method for composing asynchronous
             code. concept is normal text while the description is header text
             below
           </Notes>
-        </ConceptSlide>
-        <ImageSlide image="asynchronous.gif">
+        </SimpleSlide>
+        <ImageSlide inverted image="asynchronous.gif">
           <Notes>
             * Concurrency provides a natural method for composing asynchronous
             code. * Concurrency allows your program to avoid blocking user
@@ -247,6 +269,7 @@ export default class Presentation extends React.Component {
         </ImageSlide>
 
         <QuoteSlide
+          inverted
           quote="“Make it work, then make it beautiful, then if you really, really have to, make it fast.
           90 percent of the time, if you make it beautiful, it will already be fast. So really, just make it beautiful!”"
           cite="Joe Armstrong"
@@ -254,19 +277,37 @@ export default class Presentation extends React.Component {
           <Notes>Who is familiar with Joe Armstrong</Notes>
         </QuoteSlide>
 
-        <ConceptSlide
+        <SimpleSlide
           fit={false}
-          inverted
-          concept="Key Question"
-          description="How do we coordinate between parallel programs?"
-        />
+          statement="How do we coordinate between tasks working together?"
+        >
+          <Notes>
+            So I'm going to shift gears and talk about coordination for a bit --
+            how we organize work between multiple potentially paraellel tasks
+            that are working together?
+          </Notes>
+        </SimpleSlide>
         <ImageSlide
           fit={false}
           inverted
           title="The Problem"
           image="double-keyboard.gif"
           text="Concurrency Without Coordination"
-        />
+        >
+          <Notes>
+            <p>First of all let's talk about why we need to coordinate.</p>
+
+            <p>
+              Anna said that the goal of concurrency is keep our work unblocked
+              -- moving fast, and potentially in parallel.
+            </p>
+
+            <p>
+              But multiple things happening in parallel, doesn't neccesarily
+              accomplish anything, as this somewhat infamous NCIS image shows
+            </p>
+          </Notes>
+        </ImageSlide>
         <ListSlide
           ordered={false}
           inverted
@@ -276,26 +317,69 @@ export default class Presentation extends React.Component {
             'Use mutation on shared state to communicate',
             'Use various locks to prevent overwriting each others work'
           ]}
-        />
+        >
+          <Notes>
+            <p>
+              So the simplest way to do this, and the way it's been done
+              traditionally, is to use the fact that threads share the same
+              memory space.
+            </p>
+            <p>
+              So if we both have access to a common data structure we can use
+              mutations to communicate the work we're doing
+            </p>
+            <p>
+              We have to be careful cause we don't want to override each others
+              work, so we'll need various locking mechanisms to serialize access
+              to data structures -- some of the most common are called mutexs
+              and semaphores
+            </p>
+          </Notes>
+        </ListSlide>
         <ImageSlide
           fit={false}
           inverted
           title="Threads"
           image="Rundmc.jpg"
           text="Old School Concurrency"
-        />
+        >
+          <Notes>
+            Threads are the original basis for writing concurrent programs --
+            because they're already built into the operating system, and
+            communicating through sharing data is something you basically can
+            get for free. Maybe you need a few locking mechanism, but they're
+            generally really simple.
+          </Notes>
+        </ImageSlide>
         <SimpleSlide
           fit={false}
           inverted
           statement="Most widely used programming languages support threads."
-        />
+        >
+          <Notes>
+            <p>
+              And as a result, the vast majority of traditional programming
+              languages support using threads, and provide the basic mechanisms
+              for communicating with shared data
+            </p>
+          </Notes>
+        </SimpleSlide>
         <ImageSlide
           fit={false}
           inverted
           title="Mo Threads"
           image="biggie.jpg"
           text="Mo Problems"
-        />
+        >
+          <Notes>
+            <p>
+              As a basic way to coordinate work, communicating with shared data
+              through threads is really simple and easy. The problem is, it
+              doesn't scale. What starts off simple gets unwielding once you've
+              got a complex set of coordinate jobs
+            </p>
+          </Notes>
+        </ImageSlide>
         <ListSlide
           inverted
           title="Challenges With Threads"
@@ -304,10 +388,31 @@ export default class Presentation extends React.Component {
             'Dead locks / unpredictabiity',
             'Expontential complexity to manage'
           ]}
-        />
+        >
+          <Notes>
+            <p>
+              And before you know it you've run smack into the classic problems
+              with this approach
+            </p>
+            <p>
+              First of all, the entire mechanism is dependent on shared, mutable
+              state. And as functional programmers, we know this has all kinds
+              of unpredictabiity
+            </p>
+            <p>
+              Second, who writes first gets very unpredictable, and if you use
+              locking mechanisms and you forget to unlock, you can freeze your
+              program
+            </p>
+            <p>
+              Fundamentally though these the complexity of managing shared state
+              basically grows Expontentially as you add more threads and more
+              state, rather than linearly
+            </p>
+          </Notes>
+        </ListSlide>
 
-
-        <SimpleSlide inverted fit={false} statement="The Actor Model">
+        <SimpleSlide fit={false} statement="The Actor Model">
           <Notes>
             Let's talk about how Erlang(Elixir) deal with concurrency
           </Notes>
@@ -323,8 +428,8 @@ export default class Presentation extends React.Component {
 
         <ImageSlide image="actor-model-mailbox.png">
           <Notes>
-            * An actor is the primitive unit of computation.
-            * It’s the thing that receives a message and do some kind of computation
+            * An actor is the primitive unit of computation. * It’s
+            the thing that receives a message and do some kind of computation
             based on it.
           </Notes>
         </ImageSlide>
@@ -332,46 +437,50 @@ export default class Presentation extends React.Component {
         <ListSlide
           inverted
           title="Proccesses"
-          list={['Are not OS processes','Light weight', 'Do not share memory', 'Have a unique ID’' ,]}
+          list={[
+            'Are not OS processes',
+            'Light weight',
+            'Do not share memory',
+            'Have a unique ID’'
+          ]}
         >
           <Notes>
             <p>
-              Elixir(Erlang) priorities help explain choices made in the language
+              Elixir(Erlang) priorities help explain choices made in the
+              language
             </p>
             <p>
-              Elixir is designed to be easy to be scalable -- you can easily deal with increases
-              in load on your system. All code runs in processes.
-              Because each “process” does not take up a lot of processing power,
-              hundreds of thousands of programs could be running at the same time potentially on different computers.
+              Elixir is designed to be easy to be scalable -- you can easily
+              deal with increases in load on your system. All code runs in
+              processes. Because each “process” does not take up a lot of
+              processing power, hundreds of thousands of programs could be
+              running at the same time potentially on different computers.
             </p>
             <p>
-              When was the last time you dropped a phone call? -- Elixir(Erlang) introduces supervision which allows a process
-              within your app to to crash without your whole app crashing
+              When was the last time you dropped a phone call? -- Elixir(Erlang)
+              introduces supervision which allows a process within your app to
+              to crash without your whole app crashing
             </p>
             <p>
-              Out of the box, erlang (and therefore Elixir) allows us to build applications to run in almost real time due to
-              efficiency of the runtime.
+              Out of the box, erlang (and therefore Elixir) allows us to build
+              applications to run in almost real time due to efficiency of the
+              runtime.
             </p>
           </Notes>
         </ListSlide>
 
-        <ImageSlide image="process.jpg">
+        <ImageSlide inverted image="process.jpg">
           <Notes>
-            * In elixir this Actor unit is the process. Any code that runs in elixir runs in side of a process
-            * It receives a message,
-            does some computation adn can maintain state * actors are completely
-            isolated from each other and they will never share memory * It’s
-            also worth noting that an actor can maintain a private state that
-            can never be changed directly by another actor.
-            * Not an OS process
+            * In elixir this Actor unit is the process. Any code that runs in
+            elixir runs in side of a process * It receives a message, does some
+            computation adn can maintain state * actors are completely isolated
+            from each other and they will never share memory * It’s also worth
+            noting that an actor can maintain a private state that can never be
+            changed directly by another actor. * Not an OS process
           </Notes>
         </ImageSlide>
 
-
-
-
-
-        <ImageSlide image="messages-2.jpg">
+        <ImageSlide inverted image="messages-2.jpg">
           <Notes>
             * In the actor model everything is an actor and they need to have
             addresses so one actor can send a message to another. * multiple
@@ -384,34 +493,38 @@ export default class Presentation extends React.Component {
           </Notes>
         </ImageSlide>
 
-        <ImageSlide image="messages-3.png">
+        <ImageSlide inverted image="messages-3.png">
           <Notes>
             When an actor receives a message, it can do one of these 3 things: *
-             *  *
+            * *
           </Notes>
         </ImageSlide>
 
         <ListSlide
           inverted
           title="Actor can..."
-          list={['Create more actors','Send messages to other actors', 'Designate what to do with the next message']}
+          list={[
+            'Create more actors',
+            'Send messages to other actors',
+            'Designate what to do with the next message'
+          ]}
         >
-          <Notes/>
+          <Notes />
         </ListSlide>
 
         <SimpleSlide inverted fit={false} statement="Let it Crash">
           <Notes />
         </SimpleSlide>
 
-
-        <ImageSlide image="fault-tolerance.png">
+        <ImageSlide inverted image="fault-tolerance.png">
           <Notes>
             * Each process is a unit and does not share memory * Specialized
             processes whose only job is to supervices other process - * and know
-            how to spin child processes up when they die. Effectively allowing us to build self-healing systems
+            how to spin child processes up when they die. Effectively allowing
+            us to build self-healing systems
           </Notes>
         </ImageSlide>
-        <ImageSlide image="fault-tolerance-harry-potter.gif">
+        <ImageSlide inverted image="fault-tolerance-harry-potter.gif">
           <Notes>*</Notes>
         </ImageSlide>
 
@@ -419,7 +532,7 @@ export default class Presentation extends React.Component {
           <Notes />
         </SimpleSlide>
 
-        <ImageSlide image="messages-3.png">
+        <ImageSlide inverted image="messages-3.png">
           <Notes>
             * Another interesting aspect of the actor model is that it doesn’t
             matter if the actor that I’m sending a message to is running locally
@@ -435,25 +548,29 @@ export default class Presentation extends React.Component {
         <ListSlide
           inverted
           title="Elixir Priorities"
-          list={['Scalable', 'Fault Tolerant (Telco Strong)', 'Fast',]}
+          list={['Scalable', 'Fault Tolerant (Telco Strong)', 'Fast']}
         >
           <Notes>
             <p>
-              Elixir(Erlang) priorities help explain choices made in the language
+              Elixir(Erlang) priorities help explain choices made in the
+              language
             </p>
             <p>
-              Elixir is designed to be easy to be scalable -- you can easily deal with increases
-              in load on your system. All code runs in processes.
-              Because each “process” does not take up a lot of processing power,
-              hundreds of thousands of programs could be running at the same time potentially on different computers.
+              Elixir is designed to be easy to be scalable -- you can easily
+              deal with increases in load on your system. All code runs in
+              processes. Because each “process” does not take up a lot of
+              processing power, hundreds of thousands of programs could be
+              running at the same time potentially on different computers.
             </p>
             <p>
-              When was the last time you dropped a phone call? -- Elixir(Erlang) introduces supervision which allows a process
-              within your app to to crash without your whole app crashing
+              When was the last time you dropped a phone call? -- Elixir(Erlang)
+              introduces supervision which allows a process within your app to
+              to crash without your whole app crashing
             </p>
             <p>
-              Out of the box, erlang (and therefore Elixir) allows us to build applications to run in almost real time due to
-              efficiency of the runtime.
+              Out of the box, erlang (and therefore Elixir) allows us to build
+              applications to run in almost real time due to efficiency of the
+              runtime.
             </p>
           </Notes>
         </ListSlide>
@@ -466,20 +583,27 @@ export default class Presentation extends React.Component {
           <Notes />
         </SimpleSlide>
 
-
-        <ImageSlide image="erlang-vm.jpg">
+        <ImageSlide inverted image="erlang-vm.jpg">
           <Notes>
-            <p>Preemptive: A preemptive scheduler does context switching among running tasks and
-              has the power to preempt (interrupt) tasks and resume them at a later time
-              without the cooperation of the preempted task
-              This is done based on some factors like their priority or reductions.</p>
-              <p>
-              The factor of selecting a process for execution is based on their priority level which
-              is configurable per process and in each priority level processes are scheduled in a round robin fashion.
-              On the other hand the factor of preempting a process from execution is based on a certain number of Reductions
-              since the last time it was selected for execution, regardless of its priority level. The reduction is a counter per process that is normally incremented by one for each function call. It is used for preempting processes and context switching
-              them when the counter of a process reaches the maximum number of reductions.
-              </p>
+            <p>
+              Preemptive: A preemptive scheduler does context switching among
+              running tasks and has the power to preempt (interrupt) tasks and
+              resume them at a later time without the cooperation of the
+              preempted task This is done based on some factors like their
+              priority or reductions.
+            </p>
+            <p>
+              The factor of selecting a process for execution is based on their
+              priority level which is configurable per process and in each
+              priority level processes are scheduled in a round robin fashion.
+              On the other hand the factor of preempting a process from
+              execution is based on a certain number of Reductions since the
+              last time it was selected for execution, regardless of its
+              priority level. The reduction is a counter per process that is
+              normally incremented by one for each function call. It is used for
+              preempting processes and context switching them when the counter
+              of a process reaches the maximum number of reductions.
+            </p>
           </Notes>
         </ImageSlide>
 
@@ -767,7 +891,7 @@ export default class Presentation extends React.Component {
             cases.
           </Notes>
         </ConceptSlide>
-        <ImageSlide title="WTF GO?" image="blinkingwhiteguy.gif">
+        <ImageSlide inverted title="WTF GO?" image="blinkingwhiteguy.gif">
           <Notes>
             All of this may be leading you to wonder what the heck is going on
             with Go. So before we get all judgey, let's look at a few other
@@ -775,9 +899,12 @@ export default class Presentation extends React.Component {
             picture of the rationale for Go's decisions
           </Notes>
         </ImageSlide>
-        <SimpleSlide statement="Go compiles to native code" />
-        <SimpleSlide statement="Go run-time is small (2MB)" />
-        <SimpleSlide statement="Go is (almost) a systems programming language">
+        <SimpleSlide inverted statement="Go compiles to native code" />
+        <SimpleSlide inverted statement="Go run-time is small (2MB)" />
+        <SimpleSlide
+          inverted
+          statement="Go is (almost) a systems programming language"
+        >
           <Notes>
             And this gets to the core design goal of Go. Go is designed to be a
             replacement in many cases for C. It is garbage collected, so you
@@ -924,7 +1051,11 @@ export default class Presentation extends React.Component {
             </p>
           </Notes>
         </ConceptSlide>
-        <ImageSlide title="No So Different After All?" image="tomato.jpg">
+        <ImageSlide
+          inverted
+          title="No So Different After All?"
+          image="tomato.jpg"
+        >
           <Notes>But are these really substantive differences?</Notes>
         </ImageSlide>
 
@@ -983,7 +1114,7 @@ export default class Presentation extends React.Component {
           ]}
         />
 
-<DefinitionSlide
+        <DefinitionSlide
           inverted
           term="How do we implement channels in Elixir?"
         />
@@ -1014,8 +1145,7 @@ export default class Presentation extends React.Component {
             { loc: [60, 64], note: 'blocking response if no value' },
             { loc: [64, 68], note: 'return updated queue' },
             { loc: [69, 74], note: 'block if queue full' },
-            { loc: [74, 79], note: 'return when queue updated'},
-
+            { loc: [74, 79], note: 'return when queue updated' }
           ]}
         />
 
@@ -1033,10 +1163,10 @@ export default class Presentation extends React.Component {
         />
 
         <SimpleSlide
-                  inverted
-                  fit={false}
-                  statement="Choice of lanuage is one of many decisions we must make"
-                />
+          inverted
+          fit={false}
+          statement="Choice of lanuage is one of many decisions we must make"
+        />
         <ImageSlide
           title="Thank you!"
           image="poohbear.jpg"
