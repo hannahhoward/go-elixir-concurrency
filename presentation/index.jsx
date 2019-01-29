@@ -70,14 +70,21 @@ export default class Presentation extends React.Component {
           fit={false}
           term="Concurrency"
           definition="Go vs. Elixir"
-        />
+        ><Notes>
+          <p>So the motivation for this talk came from a many conversatiosn both Hannah and I have
+          had about concurrency - where Go and Elixir are often thrown into the conversation as
+          options. And while both do allow for concurrency as with everything there are tradeoffs</p>
+        </Notes>
+        </DefinitionSlide>
+        <ImageSlide image="tradeoffs.png">
+          <Notes></Notes>
+        </ImageSlide>
         <ImageSlide image="go-vs-elixir.jpg">
           <Notes>
             And when we are looking Go vs Elixir what we are really looking at
             today are the concurrency models of the the two. And we are not
-            really talking about one versus the other. We really are looking at
-            the right tool for the right job. In this case we are comparing. The
-            actor model vs Communicating Sequential Processes. But before we
+            really talking about one versus the other. In this case we are comparing. The
+            actor model in Erlang(Elixir) vs Communicating Sequential Processes in Go. But before we
             talk about that - let's take a look at how we might define
             concurrency >{' '}
           </Notes>
@@ -85,17 +92,14 @@ export default class Presentation extends React.Component {
         <ImageSlide image="homer-computer.gif">
           <Notes>
             <p>Where did this start?</p>
-            <p>In the beginning, computers did not have operating systems and were
-            designed to execute a single program from beginning to end — each
-            program had access to all of the machine’s resources.</p>
           </Notes>
         </ImageSlide>
 
         <ImageSlide image="single-threaded.png">
           <Notes>
-            In the beginning, computers did not have operating systems and were
+            <p>In the beginning, computers did not have operating systems and were
             designed to execute a single program from beginning to end — each
-            program had access to all of the machine’s resources.
+            pro´gram had access to all of the machine’s resources.</p>
           </Notes>
         </ImageSlide>
         <ImageSlide image="multi-threaded.png">
