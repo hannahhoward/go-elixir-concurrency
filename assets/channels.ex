@@ -63,6 +63,7 @@ defmodule ElixirConcurrency.Server do
     {:empty, _ } ->
       {:noreply, state}
     {{:value, {item, new_queue, size, buffer_type}} ->
+      GenServer.reply(queue, item)
       {:reply, {item, new_queue}, { new_queue }}
     end
   end
@@ -73,6 +74,7 @@ defmodule ElixirConcurrency.Server do
         {:noreply, queue}
 
       {{:ok, queue}, len, max_length} ->
+        GenServer.reply(queue);
         {:reply, queue, queue}
     end
   end

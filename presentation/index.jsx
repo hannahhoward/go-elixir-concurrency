@@ -76,21 +76,29 @@ export default class Presentation extends React.Component {
               So the motivation for this talk came from a many conversatiosn
               both Hannah and I have had about concurrency - where Go and Elixir
               are often thrown into the conversation as options. And while both
-              do allow for concurrency as with everything there are tradeoffs
+              do allow for concurrency...
             </p>
           </Notes>
         </DoubleImageSlide>
         <ImageSlide image="tradeoffs.png">
-          <Notes />
+          <Notes>
+             <p> As with everything there are tradeoffs</p>
+          </Notes>
         </ImageSlide>
         <ImageSlide image="go-vs-elixir.jpg">
           <Notes>
-            And when we are looking Go vs Elixir what we are really looking at
-            today are the concurrency models of the the two. And we are not
+            <p>And when we are looking Go vs Elixir what we are really looking at
+            today are the concurrency models of the the two.</p>
+
+            <p>We are not
             really talking about one versus the other. In this case we are
-            comparing. The actor model in Erlang(Elixir) vs Communicating
-            Sequential Processes in Go. But before we talk about that - let's
-            take a look at how we might define concurrency >{' '}
+            comparing.</p>
+
+            <p>The actor model in Erlang(Elixir) vs Communicating
+            Sequential Processes in Go.</p>
+
+            <p>But before we talk about that - let's
+            take a look at how we might define concurrency</p>
           </Notes>
         </ImageSlide>
         <ImageSlide image="homer-computer.gif">
@@ -103,160 +111,231 @@ export default class Presentation extends React.Component {
           <Notes>
             <p>
               In the beginning, computers did not have operating systems and
-              were designed to execute a single program from beginning to end —
-              each pro´gram had access to all of the machine’s resources.
+              were designed to execute a single program from beginning to end
+            </p>
+            <p>
+              Each program had access to all of the machine’s resources.
             </p>
           </Notes>
         </ImageSlide>
         <ImageSlide image="multi-threaded.png">
           <Notes>
-            Over time, operating systems evolved to allow multiple programs to
-            execute at once, each within a process — an independently isolated
+            <p>Over time, operating systems evolved to allow multiple programs to
+            execute at once</p>
+            <p>each within a process</p>
+            <p>an independently isolated
             program that is assigned resources like memory, file handles, and
-            security controls.
+            security controls.</p>
           </Notes>
         </ImageSlide>
-        <SimpleSlide inverted fit={false} statement="Let's break that down">
+        {/* <SimpleSlide inverted fit={false} statement="Let's break that down">
           <Notes />
-        </SimpleSlide>
-        <ImageSlide inverted image="process-explained.jpg">
-          <Notes>
-            <ul>
-              <li>
-                Running the CPU is actually executing statements of this
-                process. At any given instant, only one process can be running.
-              </li>
-              <li>
-                Ready the process is loaded into memory and runnable, but is not
-                actually running; the CPU is doing something else. The set of
-                processes which are ready to run but not running are often
-                referred to as being on the Ready Queue, although the data
-                structure which contains these may not be a simple queue.
-              </li>
-              <li>
-                Blocked the process is not runnable because it is waiting for an
-                event to occur. The usual event is that it is waiting for an I/O
-                operation to complete, but there are lots of other events as
-                well. Most of the processes which were listed by the ps command
-                or displayed by the Task Manager are in this state. Another term
-                for blocked is sleeping.
-              </li>
-              <li>
-                You might wondering how 40 or more processes can be running at
-                the same time. This is a phenomenon called multiprogramming or
-                multitasking and was developed by experimental and later
-                commercial operating systems during the 1960s. At a particular
-                instant in time, only one process can actually be running on a
-                computer with only one CPU. However, the executable code for
-                several processes is loaded into memory, and the processor
-                switches rapidly between several jobs, giving the illusion that
-                several jobs are running at once. At the risk of
-                oversimplifying, a process can be in one of three states
-              </li>
-            </ul>
-          </Notes>
-        </ImageSlide>
-        <SimpleSlide
+        </SimpleSlide> */}
+
+        {/* <SimpleSlide
           inverted
           fit={false}
           statement="An executing instance of a program is called a process"
         >
           <Notes />
-        </SimpleSlide>
-        <SimpleSlide
-          inverted
-          fit={false}
-          statement="A process is always stored in the main memory"
-        >
-          <Notes />
-        </SimpleSlide>
+        </SimpleSlide> */}
+
         <SimpleSlide
           inverted
           fit={false}
           statement="On a multiprocessor system, multiple processes can be executed in parallel"
         >
-          <Notes />
+         <Notes />
         </SimpleSlide>
 
-        <ImageSlide inverted image="calculator.gif">
+        <ImageSlide inverted image="process-explained.jpg">
+          <Notes>
+              <p>
+                You might wondering how when you have a bunch of programs running on you computer how
+                they all can be running at the same time.</p>
+              <p> At a particular
+                instant in time, only one process can actually be running on a
+                computer with only one CPU.</p>
+
+              <p> However, the executable code for
+                several processes is loaded into memory, and the processor
+                switches rapidly between several jobs, giving the illusion that
+                several jobs are running at once.
+              </p>
+              <p>
+                At the risk of
+                oversimplifying, a process can be in one of three states
+              </p>
+              <p>
+                Running: the CPU is actually executing statements of this
+                process. At any given instant, only one process can be running.
+              </p>
+              <p>
+                Ready: the process is loaded into memory and runnable, but is not
+                actually running; the CPU is doing something else.
+              </p>
+              <p>
+                Blocked: the process is not runnable because it is waiting for an
+                event to occur. The usual event is that it is waiting for an I/O
+                operation to complete,
+              </p>
+          </Notes>
+        </ImageSlide>
+
+        {/* <ImageSlide inverted image="calculator.gif">
           <Notes>
             - * Example: Executing multiple instances of the ‘Calculator’
             program. Each of the instances are termed as a process.
           </Notes>
-        </ImageSlide>
+        </ImageSlide> */}
 
-        <SimpleSlide inverted fit={false} statement="Ok, so what is a thread?">
+        <SimpleSlide inverted fit={false} statement="But we also have ">
           <Notes />
         </SimpleSlide>
 
-        <ImageSlide inverted image="threads.png">
+        <ImageSlide inverted image="threads.gif">
           <Notes>
-            * A thread is a subset of the process. * It is termed as a
-            ‘lightweight process’, since it is similar to a real process but
-            executes within the context of a process and shares the same
-            resources allotted to the process by the kernel.
           </Notes>
         </ImageSlide>
-
+{/*
         <SimpleSlide
           inverted
           fit={false}
           statement="A thread is a subset of the process"
         >
           <Notes />
-        </SimpleSlide>
-        <SimpleSlide
+        </SimpleSlide> */}
+        {/* <SimpleSlide
           inverted
           fit={false}
           statement="threads of a process share the same memory"
         >
           <Notes />
-        </SimpleSlide>
+        </SimpleSlide> */}
 
-        <ImageSlide inverted image="concurrency-explained.jpg">
+        <ImageSlide inverted image="process-thread.jpg">
           <Notes>
-            <p>
-              the ability of different parts or units of a program, algorithm,
-              or problem to be executed out-of-order or in partial order,
-              without affecting the final outcome.
-            </p>
-            <p>
-              {' '}
-              - * Concurrency: Concurrency is the scheduling of work to happen
-              over multiple processors (or multiple nodes in a system).
-              Concurrency implies that each unit of work is continuously making
-              progress.{' '}
-            </p>
-            <p>
-              {' '}
-              - * Parallelism: Parallelism happens when at least two units of
-              work are executing simultaneously. It’s notable that you can
-              support concurrency on a single processor system using appropriate
-              scheduling, while parallelism requires multiple processors or
-              systems.
-            </p>
+            <p>thread subset of process</p>
+            <p>threads of a process share the same memory</p>
+            <p>It is termed as a
+            ‘lightweight process’, since it is similar to a real process but
+            executes within the context of a process and shares the same
+            resources allotted to the process by the kernel.</p>
           </Notes>
         </ImageSlide>
 
+        {/* <SimpleSlide
+          inverted
+          fit={false}
+          statement="Concurrency: implies that each unit of work is continuously making progress."
+        >
+          <Notes />
+        </SimpleSlide> */}
+
         <SimpleSlide
           inverted
           fit={false}
-          statement="Concurrency: scheduling of work to happen over multiple processors"
+          statement="How do OS processes and threads relate to Elixir and Go"
         >
-          <Notes />
+          <Notes><p>need better transition here</p></Notes>
         </SimpleSlide>
-        <SimpleSlide
+        {/* <SimpleSlide
           inverted
           fit={false}
-          statement="Concurrency:  implies that each unit of work is continuously making progress."
+          statement="Concurrency = Scheduling"
         >
-          <Notes />
-        </SimpleSlide>
-        <SimpleSlide inverted statement="So why do we care about concurrency?">
+          <Notes><p>What do I mean by this?</p></Notes>
+        </SimpleSlide> */}
+
+
+        <ImageSlide inverted image="concurrency-vs-parallelism.png">
           <Notes>
-            * Concurrency provides a natural method for composing asynchronous
-            code. concept is normal text while the description is header text
-            below
+            <p>
+              {' '}
+              - * Concurrency: Concurrency means that an application
+              is making progress on more than one task at the same time (concurrently).
+            </p>
+            <p>As mentioned is a computer only has one CPU it can't make progress on more than one task at one time</p>
+            <p>but more than one task is being processed at a time inside the application given the processor is able to
+              switch between tasks. One taks goes into a waiting state while another task is executed for a period of time</p>
+            <p>
+              Let's say you have 5 people assembling a single bed or one person assembling 5 beds</p>
+            <p>You can imagine the sets of instructions you would need would be different</p>
+            <p> for the 5 people assembling 5 beds  the instructions are the same and no one has to wait for anyone
+              to finishe a step</p>
+              <p>Which we refer to as parallelism</p>
+
+              <p>Whereas with 5 people assembling one bed need to coordinate their actions to come together
+                with a finsihed bed</p>
+          </Notes>
+        </ImageSlide>
+
+        <QuoteSlide
+          inverted
+          quote="“Concurrency is the composition of independently executing processes, while parallelism is the simultaneous execution of computations“"
+        >
+        </QuoteSlide>
+        <SimpleSlide
+          inverted
+          fit={false}
+          statement="Parallelism is about executing many things at once. It's focus is execution"
+        >
+          <Notes />
+        </SimpleSlide>
+
+
+        <SimpleSlide
+          inverted
+          fit={false}
+          statement="Concurrency is about dealing with many things at once. It's focus is structure"
+        >
+          <Notes>It requires coordination</Notes>
+        </SimpleSlide>
+
+        <SimpleSlide
+          inverted
+          fit={false}
+          statement="Coordination introduces complexity..."
+        >
+          <Notes>Good lead off for Hannah to discuss coordination</Notes>
+        </SimpleSlide>
+
+
+
+        {/* <SimpleSlide
+          inverted
+          fit={false}
+          statement="Concurrency: implies that each unit of work is continuously making progress."
+        >
+          <Notes />
+        </SimpleSlide> */}
+
+
+        {/* <SimpleSlide
+          inverted
+          fit={false}
+          statement="Concurrency = Scheduling"
+        >
+          <Notes><p>What do I mean by this?</p></Notes>
+        </SimpleSlide> */}
+
+
+{/*
+
+        <SimpleSlide
+          inverted
+          fit={false}
+          statement="Concurrency: implies that each unit of work is continuously making progress."
+        >
+          <Notes />
+        </SimpleSlide> */}
+
+
+
+        {/* <SimpleSlide inverted statement="So why do we care about concurrency?">
+          <Notes>
+            <p>Concurrency provides a natural method for composing asynchronous
+            code.</p>
           </Notes>
         </SimpleSlide>
         <ImageSlide inverted image="asynchronous.gif">
@@ -275,7 +354,7 @@ export default class Presentation extends React.Component {
           cite="Joe Armstrong"
         >
           <Notes>Who is familiar with Joe Armstrong</Notes>
-        </QuoteSlide>
+        </QuoteSlide> */}
 
         <SimpleSlide
           fit={false}
@@ -414,7 +493,7 @@ export default class Presentation extends React.Component {
 
         <SimpleSlide fit={false} statement="The Actor Model">
           <Notes>
-            Let's talk about how Erlang(Elixir) deal with concurrency
+            Let's talk about how Erlang(Elixir) deal with coordination
           </Notes>
         </SimpleSlide>
 
@@ -424,6 +503,7 @@ export default class Presentation extends React.Component {
             computation * It defines some general rules for how the system’s
             components should behave and interact with each other.
           </Notes>
+          <Notes></Notes>
         </ImageSlide>
 
         <ImageSlide image="actor-model-mailbox.png">
