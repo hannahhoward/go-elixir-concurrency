@@ -123,9 +123,13 @@ export default class Presentation extends React.Component {
             <p>Over time, operating systems evolved to allow multiple programs to
             execute at once</p>
             <p>each within a process</p>
-            <p>an independently isolated
-            program that is assigned resources like memory, file handles, and
-            security controls.</p>
+            <p>On a multiprocessor system, multiple processes can be executed in parallel</p>
+          </Notes>
+        </ImageSlide>
+
+        <ImageSlide image="multi-tasking.png">
+          <Notes>
+            <p>So how is it that this is possible?</p>
           </Notes>
         </ImageSlide>
         {/* <SimpleSlide inverted fit={false} statement="Let's break that down">
@@ -140,20 +144,9 @@ export default class Presentation extends React.Component {
           <Notes />
         </SimpleSlide> */}
 
-        <SimpleSlide
-          inverted
-          fit={false}
-          statement="On a multiprocessor system, multiple processes can be executed in parallel"
-        >
-         <Notes />
-        </SimpleSlide>
-
         <ImageSlide inverted image="process-explained.jpg">
           <Notes>
-              <p>
-                You might wondering how when you have a bunch of programs running on you computer how
-                they all can be running at the same time.</p>
-              <p> At a particular
+              <p>While it is true that at a particular
                 instant in time, only one process can actually be running on a
                 computer with only one CPU.</p>
 
@@ -250,23 +243,12 @@ export default class Presentation extends React.Component {
 
         <ImageSlide inverted image="concurrency-vs-parallelism.png">
           <Notes>
-            <p>
-              {' '}
-              - * Concurrency: Concurrency means that an application
-              is making progress on more than one task at the same time (concurrently).
-            </p>
-            <p>As mentioned is a computer only has one CPU it can't make progress on more than one task at one time</p>
-            <p>but more than one task is being processed at a time inside the application given the processor is able to
-              switch between tasks. One taks goes into a waiting state while another task is executed for a period of time</p>
-            <p>
-              Let's say you have 5 people assembling a single bed or one person assembling 5 beds</p>
-            <p>You can imagine the sets of instructions you would need would be different</p>
-            <p> for the 5 people assembling 5 beds  the instructions are the same and no one has to wait for anyone
-              to finishe a step</p>
-              <p>Which we refer to as parallelism</p>
-
-              <p>Whereas with 5 people assembling one bed need to coordinate their actions to come together
-                with a finsihed bed</p>
+              <p>Let's say you have 5 people assembling 5 single bed</p>
+              <p>You can imagine that the instructions look pretty straight forward</p>
+              <p>Now imagine you had 5 people assembling a single bed</p>
+              <p> What would those instructions look like the instructions to ensure that no one has to wait for anyone
+              to finishe a step and we get a finished bed as a result</p>
+              <p>This feels a lot more complex</p>
           </Notes>
         </ImageSlide>
 
@@ -497,22 +479,91 @@ export default class Presentation extends React.Component {
           </Notes>
         </SimpleSlide>
 
+
+        <SimpleSlide fit={false} statement="Invented by Carl Hewitt 1973">
+          <Notes>
+            Fun Fact
+          </Notes>
+        </SimpleSlide>
+
+        <SimpleSlide fit={false} statement="Erlang created in 1986">
+          <Notes>
+            <p>Creators of Erlang were not aware of the actor model
+              when they wrote erlang...which speaks to the promise of this
+              design pattern
+            </p>
+          </Notes>
+        </SimpleSlide>
+
+
+        <SimpleSlide fit={false} statement="Conceptual model to deal with concurrent computation">
+
+        </SimpleSlide>
+
+        <SimpleSlide fit={false} statement="Defines some general rules for how the system’s
+            components should behave and interact with each other">
+        </SimpleSlide>
+
         <ImageSlide image="actor-model-mailbox.png">
           <Notes>
-            * The actor model is a conceptual model to deal with concurrent
-            computation * It defines some general rules for how the system’s
-            components should behave and interact with each other.
+            <p>So this is an example of what it might look like</p>
+            <p>What is going on here?</p>
+            <p>Each of these Circles has a mailbox and this little box that says internal state</p>
+            <p>Each of these units is an actor(and in Erlang/Elixir land is called a process)</p>
+            <p>This processes are completely isolated from each other</p>
+            <p>not OS processes</p>
+            <p>they communciate by sending messages to each other</p>
+            <p>They never share memory, which means they do not direcly share data</p>
+            <p>And each of these processes maintains and internal state that cannot be accesses directly by another process</p>
           </Notes>
           <Notes></Notes>
         </ImageSlide>
 
-        <ImageSlide image="actor-model-mailbox.png">
+
+
+        <QuoteSlide
+          inverted
+          quote="One ant is no ant."
+          cite="https://www.brianstorti.com/the-actor-model/"
+        >
           <Notes>
-            * An actor is the primitive unit of computation. * It’s
-            the thing that receives a message and do some kind of computation
-            based on it.
+
+          </Notes>
+        </QuoteSlide>
+
+        <ImageSlide image="ant.gif">
+          <Notes>
+            <p>one ant cannot survive alone</p>
+            <p>same idea for actors</p>
+            <p>they come in systems</p>
+            <p>in this model everything is an actor</p>
+            <p>each actor has a unique address so that it can send and
+              recive messages to other actors</p>
+
           </Notes>
         </ImageSlide>
+
+
+        <ImageSlide image="sending-mail.gif">
+
+        </ImageSlide>
+
+        <ImageSlide image="actor-model-mailbox.png">
+          <Notes>
+            <p>
+              Taking a close look at the sending of messages
+            </p>
+            <p>we mentiomedd that each process has a unique addresss</p>
+            <p>Messages are sent asynchorously and stored in the mailbox</p>
+            <p>Actor recieves a message it can do one of 3 things</p>
+            <p>create more actors</p>
+            <p>send message to other actors</p>
+            <p>designate what to do with the next message - or essentially
+              update it's internal state which will be the staet used by the next message (essentially
+              how actors mutate state</p>
+          </Notes>
+        </ImageSlide>
+
 
         <ListSlide
           inverted
@@ -521,35 +572,36 @@ export default class Presentation extends React.Component {
             'Are not OS processes',
             'Light weight',
             'Do not share memory',
-            'Have a unique ID’'
+            'Have a unique ID'
           ]}
         >
           <Notes>
-            <p>
-              Elixir(Erlang) priorities help explain choices made in the
-              language
-            </p>
-            <p>
-              Elixir is designed to be easy to be scalable -- you can easily
-              deal with increases in load on your system. All code runs in
-              processes. Because each “process” does not take up a lot of
-              processing power, hundreds of thousands of programs could be
-              running at the same time potentially on different computers.
-            </p>
-            <p>
-              When was the last time you dropped a phone call? -- Elixir(Erlang)
-              introduces supervision which allows a process within your app to
-              to crash without your whole app crashing
-            </p>
-            <p>
-              Out of the box, erlang (and therefore Elixir) allows us to build
-              applications to run in almost real time due to efficiency of the
-              runtime.
-            </p>
+
           </Notes>
         </ListSlide>
 
-        <ImageSlide inverted image="process.jpg">
+        <SimpleSlide fit={false} statement="The Actor Model is Physically based"></SimpleSlide>
+
+        <ImageSlide image="switches.png">
+          <Notes>
+            <p>
+              Built to model real world contraints of physical systems
+            </p>
+
+          </Notes>
+        </ImageSlide>
+
+        <ImageSlide image="telephone-lines.jpg">
+          <Notes>
+            <p>
+              over long distances
+            </p>
+            <p>This maded a necessity some of the functionality available in our Elixir/Erlang Ecosystem</p>
+          </Notes>
+        </ImageSlide>
+
+
+        {/* <ImageSlide inverted image="process.jpg">
           <Notes>
             * In elixir this Actor unit is the process. Any code that runs in
             elixir runs in side of a process * It receives a message, does some
@@ -558,9 +610,9 @@ export default class Presentation extends React.Component {
             noting that an actor can maintain a private state that can never be
             changed directly by another actor. * Not an OS process
           </Notes>
-        </ImageSlide>
+        </ImageSlide> */}
 
-        <ImageSlide inverted image="messages-2.jpg">
+        {/* <ImageSlide inverted image="messages-2.jpg">
           <Notes>
             * In the actor model everything is an actor and they need to have
             addresses so one actor can send a message to another. * multiple
@@ -571,16 +623,16 @@ export default class Presentation extends React.Component {
             while it’s processing another message. The mailbox is the place
             where these messages are stored.
           </Notes>
-        </ImageSlide>
-
+        </ImageSlide> */}
+{/*
         <ImageSlide inverted image="messages-3.png">
           <Notes>
             When an actor receives a message, it can do one of these 3 things: *
             * *
           </Notes>
-        </ImageSlide>
+        </ImageSlide> */}
 
-        <ListSlide
+        {/* <ListSlide
           inverted
           title="Actor can..."
           list={[
@@ -590,29 +642,8 @@ export default class Presentation extends React.Component {
           ]}
         >
           <Notes />
-        </ListSlide>
-
-        <SimpleSlide inverted fit={false} statement="Let it Crash">
-          <Notes />
-        </SimpleSlide>
-
-        <ImageSlide inverted image="fault-tolerance.png">
-          <Notes>
-            * Each process is a unit and does not share memory * Specialized
-            processes whose only job is to supervices other process - * and know
-            how to spin child processes up when they die. Effectively allowing
-            us to build self-healing systems
-          </Notes>
-        </ImageSlide>
-        <ImageSlide inverted image="fault-tolerance-harry-potter.gif">
-          <Notes>*</Notes>
-        </ImageSlide>
-
-        <SimpleSlide inverted fit={false} statement="Distributed Elixir">
-          <Notes />
-        </SimpleSlide>
-
-        <ImageSlide inverted image="messages-3.png">
+        </ListSlide> */}
+         {/* <ImageSlide inverted image="messages-3.png">
           <Notes>
             * Another interesting aspect of the actor model is that it doesn’t
             matter if the actor that I’m sending a message to is running locally
@@ -623,37 +654,39 @@ export default class Presentation extends React.Component {
             systems that leverage multiple computers and helps us to recover if
             one of them fail.
           </Notes>
-        </ImageSlide>
+        </ImageSlide> */}
 
-        <ListSlide
-          inverted
-          title="Elixir Priorities"
-          list={['Scalable', 'Fault Tolerant (Telco Strong)', 'Fast']}
-        >
+        <SimpleSlide inverted fit={false} statement="Distributed Elixir">
           <Notes>
-            <p>
-              Elixir(Erlang) priorities help explain choices made in the
-              language
+            <p>Each process has a unique ID - making it really easy to commmunicate
+              whether it be to a process on the same machine or across the world
             </p>
+            <p>so processes communicate direclty with other processes</p>
             <p>
-              Elixir is designed to be easy to be scalable -- you can easily
-              deal with increases in load on your system. All code runs in
-              processes. Because each “process” does not take up a lot of
-              processing power, hundreds of thousands of programs could be
-              running at the same time potentially on different computers.
+              And given that a node can go down at any time - we would not want sending a
+              message normalize confiramtion of receiving a message ot be blocking - hence the asynchronous
+              nature of the message passing
             </p>
-            <p>
-              When was the last time you dropped a phone call? -- Elixir(Erlang)
-              introduces supervision which allows a process within your app to
-              to crash without your whole app crashing
-            </p>
-            <p>
-              Out of the box, erlang (and therefore Elixir) allows us to build
-              applications to run in almost real time due to efficiency of the
-              runtime.
-            </p>
+            <p>messages are also not time bound in any sense</p>
           </Notes>
-        </ListSlide>
+        </SimpleSlide>
+        <SimpleSlide inverted fit={false} statement="Let it Crash">
+          <Notes />
+        </SimpleSlide>
+
+        <ImageSlide inverted image="fault-tolerance.png">
+          <Notes>
+            <p>Erlang and Elixir allow for self healing systems</p>
+
+            <p>Erlang and Elixir have specialized proecesses that monitor other processes</p>
+            <p>back to coordination - if a part of our system breaks - we do not want to take down the whole system</p>
+
+
+          </Notes>
+        </ImageSlide>
+        <ImageSlide inverted image="fault-tolerance-harry-potter.gif">
+          <Notes>*</Notes>
+        </ImageSlide>
 
         <SimpleSlide inverted fit={false} statement="The BEAM">
           <Notes />
@@ -686,6 +719,44 @@ export default class Presentation extends React.Component {
             </p>
           </Notes>
         </ImageSlide>
+
+        
+
+
+
+
+
+        <ListSlide
+          inverted
+          title="Elixir Priorities"
+          list={['Scalable', 'Fault Tolerant (Telco Strong)', 'Fast']}
+        >
+          <Notes>
+            <p>
+              Elixir(Erlang) priorities help explain choices made in the
+              language
+            </p>
+            <p>
+              Elixir is designed to be easy to be scalable -- you can easily
+              deal with increases in load on your system. All code runs in
+              processes. Because each “process” does not take up a lot of
+              processing power, hundreds of thousands of programs could be
+              running at the same time potentially on different computers.
+            </p>
+            <p>
+              When was the last time you dropped a phone call? -- Elixir(Erlang)
+              introduces supervision which allows a process within your app to
+              to crash without your whole app crashing
+            </p>
+            <p>
+              Out of the box, erlang (and therefore Elixir) allows us to build
+              applications to run in almost real time due to efficiency of the
+              runtime.
+            </p>
+          </Notes>
+        </ListSlide>
+
+
 
         <SimpleSlide statement="Go And CSP" />
 
