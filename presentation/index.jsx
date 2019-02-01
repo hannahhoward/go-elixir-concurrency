@@ -146,6 +146,7 @@ export default class Presentation extends React.Component {
 
         <ImageSlide inverted image="process-explained.jpg">
           <Notes>
+              <p>It's not. We fake it.</p>
               <p>While it is true that at a particular
                 instant in time, only one process can actually be running on a
                 computer with only one CPU.</p>
@@ -228,9 +229,9 @@ export default class Presentation extends React.Component {
         <SimpleSlide
           inverted
           fit={false}
-          statement="How do OS processes and threads relate to Elixir and Go"
+          statement="So how is this relevant?"
         >
-          <Notes><p>need better transition here</p></Notes>
+          <Notes><p>Well now we have these more robust machines we can do more things at once. How can we leverage our applications to do more things at once</p></Notes>
         </SimpleSlide>
         {/* <SimpleSlide
           inverted
@@ -516,7 +517,6 @@ export default class Presentation extends React.Component {
             <p>They never share memory, which means they do not direcly share data</p>
             <p>And each of these processes maintains and internal state that cannot be accesses directly by another process</p>
           </Notes>
-          <Notes></Notes>
         </ImageSlide>
 
 
@@ -582,7 +582,7 @@ export default class Presentation extends React.Component {
 
         <SimpleSlide fit={false} statement="The Actor Model is Physically based"></SimpleSlide>
 
-        <ImageSlide image="switches.png">
+        <ImageSlide image="switches.jpg">
           <Notes>
             <p>
               Built to model real world contraints of physical systems
@@ -720,7 +720,7 @@ export default class Presentation extends React.Component {
           </Notes>
         </ImageSlide>
 
-        
+
 
 
 
@@ -755,8 +755,6 @@ export default class Presentation extends React.Component {
             </p>
           </Notes>
         </ListSlide>
-
-
 
         <SimpleSlide statement="Go And CSP" />
 
