@@ -132,17 +132,6 @@ export default class Presentation extends React.Component {
             <p>So how is it that this is possible?</p>
           </Notes>
         </ImageSlide>
-        {/* <SimpleSlide inverted fit={false} statement="Let's break that down">
-          <Notes />
-        </SimpleSlide> */}
-
-        {/* <SimpleSlide
-          inverted
-          fit={false}
-          statement="An executing instance of a program is called a process"
-        >
-          <Notes />
-        </SimpleSlide> */}
 
         <ImageSlide inverted image="process-explained.jpg">
           <Notes>
@@ -176,13 +165,6 @@ export default class Presentation extends React.Component {
           </Notes>
         </ImageSlide>
 
-        {/* <ImageSlide inverted image="calculator.gif">
-          <Notes>
-            - * Example: Executing multiple instances of the ‘Calculator’
-            program. Each of the instances are termed as a process.
-          </Notes>
-        </ImageSlide> */}
-
         <SimpleSlide inverted fit={false} statement="But we also have ">
           <Notes />
         </SimpleSlide>
@@ -191,21 +173,6 @@ export default class Presentation extends React.Component {
           <Notes>
           </Notes>
         </ImageSlide>
-{/*
-        <SimpleSlide
-          inverted
-          fit={false}
-          statement="A thread is a subset of the process"
-        >
-          <Notes />
-        </SimpleSlide> */}
-        {/* <SimpleSlide
-          inverted
-          fit={false}
-          statement="threads of a process share the same memory"
-        >
-          <Notes />
-        </SimpleSlide> */}
 
         <ImageSlide inverted image="process-thread.jpg">
           <Notes>
@@ -218,14 +185,6 @@ export default class Presentation extends React.Component {
           </Notes>
         </ImageSlide>
 
-        {/* <SimpleSlide
-          inverted
-          fit={false}
-          statement="Concurrency: implies that each unit of work is continuously making progress."
-        >
-          <Notes />
-        </SimpleSlide> */}
-
         <SimpleSlide
           inverted
           fit={false}
@@ -233,14 +192,6 @@ export default class Presentation extends React.Component {
         >
           <Notes><p>Well now we have these more robust machines we can do more things at once. How can we leverage our applications to do more things at once</p></Notes>
         </SimpleSlide>
-        {/* <SimpleSlide
-          inverted
-          fit={false}
-          statement="Concurrency = Scheduling"
-        >
-          <Notes><p>What do I mean by this?</p></Notes>
-        </SimpleSlide> */}
-
 
         <ImageSlide inverted image="concurrency-vs-parallelism.png">
           <Notes>
@@ -282,62 +233,6 @@ export default class Presentation extends React.Component {
         >
           <Notes>Good lead off for Hannah to discuss coordination</Notes>
         </SimpleSlide>
-
-
-
-        {/* <SimpleSlide
-          inverted
-          fit={false}
-          statement="Concurrency: implies that each unit of work is continuously making progress."
-        >
-          <Notes />
-        </SimpleSlide> */}
-
-
-        {/* <SimpleSlide
-          inverted
-          fit={false}
-          statement="Concurrency = Scheduling"
-        >
-          <Notes><p>What do I mean by this?</p></Notes>
-        </SimpleSlide> */}
-
-
-{/*
-
-        <SimpleSlide
-          inverted
-          fit={false}
-          statement="Concurrency: implies that each unit of work is continuously making progress."
-        >
-          <Notes />
-        </SimpleSlide> */}
-
-
-
-        {/* <SimpleSlide inverted statement="So why do we care about concurrency?">
-          <Notes>
-            <p>Concurrency provides a natural method for composing asynchronous
-            code.</p>
-          </Notes>
-        </SimpleSlide>
-        <ImageSlide inverted image="asynchronous.gif">
-          <Notes>
-            * Concurrency provides a natural method for composing asynchronous
-            code. * Concurrency allows your program to avoid blocking user
-            operations. * Concurrency provides one of the easiest ways take
-            advantage of multi core systems..
-          </Notes>
-        </ImageSlide>
-
-        <QuoteSlide
-          inverted
-          quote="“Make it work, then make it beautiful, then if you really, really have to, make it fast.
-          90 percent of the time, if you make it beautiful, it will already be fast. So really, just make it beautiful!”"
-          cite="Joe Armstrong"
-        >
-          <Notes>Who is familiar with Joe Armstrong</Notes>
-        </QuoteSlide> */}
 
         <SimpleSlide
           fit={false}
@@ -600,62 +495,6 @@ export default class Presentation extends React.Component {
           </Notes>
         </ImageSlide>
 
-
-        {/* <ImageSlide inverted image="process.jpg">
-          <Notes>
-            * In elixir this Actor unit is the process. Any code that runs in
-            elixir runs in side of a process * It receives a message, does some
-            computation adn can maintain state * actors are completely isolated
-            from each other and they will never share memory * It’s also worth
-            noting that an actor can maintain a private state that can never be
-            changed directly by another actor. * Not an OS process
-          </Notes>
-        </ImageSlide> */}
-
-        {/* <ImageSlide inverted image="messages-2.jpg">
-          <Notes>
-            * In the actor model everything is an actor and they need to have
-            addresses so one actor can send a message to another. * multiple
-            actors can run at the same time, an actor will process a given
-            message sequentially. * 3 messages being executed concurrently, you
-            need to create 3 actors and send one message to each. * Messages are
-            sent asynchronously to an actor, that needs to store them somewhere
-            while it’s processing another message. The mailbox is the place
-            where these messages are stored.
-          </Notes>
-        </ImageSlide> */}
-{/*
-        <ImageSlide inverted image="messages-3.png">
-          <Notes>
-            When an actor receives a message, it can do one of these 3 things: *
-            * *
-          </Notes>
-        </ImageSlide> */}
-
-        {/* <ListSlide
-          inverted
-          title="Actor can..."
-          list={[
-            'Create more actors',
-            'Send messages to other actors',
-            'Designate what to do with the next message'
-          ]}
-        >
-          <Notes />
-        </ListSlide> */}
-         {/* <ImageSlide inverted image="messages-3.png">
-          <Notes>
-            * Another interesting aspect of the actor model is that it doesn’t
-            matter if the actor that I’m sending a message to is running locally
-            or in another node * if an actor is just this unit of code with a
-            mailbox and an internal state, and it just respond to messages, who
-            cares in which machine it’s actually running? As long as we can make
-            the message get there we are fine. * This allows us to create
-            systems that leverage multiple computers and helps us to recover if
-            one of them fail.
-          </Notes>
-        </ImageSlide> */}
-
         <SimpleSlide inverted fit={false} statement="Distributed Elixir">
           <Notes>
             <p>Each process has a unique ID - making it really easy to commmunicate
@@ -719,11 +558,6 @@ export default class Presentation extends React.Component {
             </p>
           </Notes>
         </ImageSlide>
-
-
-
-
-
 
 
         <ListSlide
@@ -1276,25 +1110,25 @@ export default class Presentation extends React.Component {
           ranges={[
             { loc: [0, 5], title: 'Channels in Elixir' },
             {
-              loc: [1, 8],
+              loc: [0, 8],
               note: 'Defining a queue'
             },
             {
-              loc: [9, 15],
+              loc: [9, 16],
               note: 'Adding to queue'
             },
             { loc: [15, 18], note: 'return if buffered' },
             { loc: [18, 22], note: 'Else Return value' },
-            { loc: [24, 26], note: 'Take from Queue' },
-            { loc: [26, 28], note: 'return if empty' },
-            { loc: [28, 35], note: 'Else return new queue' },
-            { loc: [38, 45], note: 'Create GenServer' },
-            { loc: [48, 51], note: 'Initialize Channel' },
-            { loc: [52, 59], note: 'Buffered channel' },
-            { loc: [60, 64], note: 'blocking response if no value' },
-            { loc: [64, 68], note: 'return updated queue' },
-            { loc: [69, 74], note: 'block if queue full' },
-            { loc: [74, 79], note: 'return when queue updated' }
+            { loc: [23, 27], note: 'Take from Queue' },
+            { loc: [25, 28], note: 'return if empty' },
+            { loc: [28, 32], note: 'Else return new queue' },
+            { loc: [36, 45], note: 'Create GenServer' },
+            { loc: [46, 50], note: 'Initialize Channel' },
+            { loc: [52, 57], note: 'Buffered channel' },
+            { loc: [59, 62], note: 'blocking response if no value' },
+            { loc: [63, 65], note: 'return updated queue' },
+            { loc: [67, 73], note: 'block if queue full' },
+            { loc: [72, 76], note: 'return when queue updated' }
           ]}
         />
 
