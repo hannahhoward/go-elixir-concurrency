@@ -66,8 +66,8 @@ export default class Presentation extends React.Component {
         </AboutMeSlide>
         <DoubleImageSlide
           fit={false}
-          image1="elixir_logo.png"
-          image2="gophercolor.png"
+          image2="elixir_logo.png"
+          image1="gophercolor.png"
           title="Go vs. Elixir"
           text="A Concurrency Comparison"
         >
@@ -82,23 +82,30 @@ export default class Presentation extends React.Component {
         </DoubleImageSlide>
         <ImageSlide image="tradeoffs.png">
           <Notes>
-             <p> As with everything there are tradeoffs</p>
+            <p> As with everything there are tradeoffs</p>
           </Notes>
         </ImageSlide>
         <ImageSlide image="go-vs-elixir.jpg">
           <Notes>
-            <p>And when we are looking Go vs Elixir what we are really looking at
-            today are the concurrency models of the the two.</p>
+            <p>
+              And when we are looking Go vs Elixir what we are really looking at
+              today are the concurrency models of the the two.
+            </p>
 
-            <p>We are not
-            really talking about one versus the other. In this case we are
-            comparing.</p>
+            <p>
+              We are not really talking about one versus the other. In this case
+              we are comparing.
+            </p>
 
-            <p>The actor model in Erlang(Elixir) vs Communicating
-            Sequential Processes in Go.</p>
+            <p>
+              The actor model in Erlang(Elixir) vs Communicating Sequential
+              Processes in Go.
+            </p>
 
-            <p>But before we talk about that - let's
-            take a look at how we might define concurrency</p>
+            <p>
+              But before we talk about that - let's take a look at how we might
+              define concurrency
+            </p>
           </Notes>
         </ImageSlide>
         <ImageSlide image="homer-computer.gif">
@@ -113,17 +120,20 @@ export default class Presentation extends React.Component {
               In the beginning, computers did not have operating systems and
               were designed to execute a single program from beginning to end
             </p>
-            <p>
-              Each program had access to all of the machine’s resources.
-            </p>
+            <p>Each program had access to all of the machine’s resources.</p>
           </Notes>
         </ImageSlide>
         <ImageSlide image="multi-threaded.png">
           <Notes>
-            <p>Over time, operating systems evolved to allow multiple programs to
-            execute at once</p>
+            <p>
+              Over time, operating systems evolved to allow multiple programs to
+              execute at once
+            </p>
             <p>each within a process</p>
-            <p>On a multiprocessor system, multiple processes can be executed in parallel</p>
+            <p>
+              On a multiprocessor system, multiple processes can be executed in
+              parallel
+            </p>
           </Notes>
         </ImageSlide>
 
@@ -135,33 +145,35 @@ export default class Presentation extends React.Component {
 
         <ImageSlide inverted image="process-explained.jpg">
           <Notes>
-              <p>It's not. We fake it.</p>
-              <p>While it is true that at a particular
-                instant in time, only one process can actually be running on a
-                computer with only one CPU.</p>
+            <p>It's not. We fake it.</p>
+            <p>
+              While it is true that at a particular instant in time, only one
+              process can actually be running on a computer with only one CPU.
+            </p>
 
-              <p> However, the executable code for
-                several processes is loaded into memory, and the processor
-                switches rapidly between several jobs, giving the illusion that
-                several jobs are running at once.
-              </p>
-              <p>
-                At the risk of
-                oversimplifying, a process can be in one of three states
-              </p>
-              <p>
-                Running: the CPU is actually executing statements of this
-                process. At any given instant, only one process can be running.
-              </p>
-              <p>
-                Ready: the process is loaded into memory and runnable, but is not
-                actually running; the CPU is doing something else.
-              </p>
-              <p>
-                Blocked: the process is not runnable because it is waiting for an
-                event to occur. The usual event is that it is waiting for an I/O
-                operation to complete,
-              </p>
+            <p>
+              {' '}
+              However, the executable code for several processes is loaded into
+              memory, and the processor switches rapidly between several jobs,
+              giving the illusion that several jobs are running at once.
+            </p>
+            <p>
+              At the risk of oversimplifying, a process can be in one of three
+              states
+            </p>
+            <p>
+              Running: the CPU is actually executing statements of this process.
+              At any given instant, only one process can be running.
+            </p>
+            <p>
+              Ready: the process is loaded into memory and runnable, but is not
+              actually running; the CPU is doing something else.
+            </p>
+            <p>
+              Blocked: the process is not runnable because it is waiting for an
+              event to occur. The usual event is that it is waiting for an I/O
+              operation to complete,
+            </p>
           </Notes>
         </ImageSlide>
 
@@ -170,45 +182,52 @@ export default class Presentation extends React.Component {
         </SimpleSlide>
 
         <ImageSlide inverted image="threads.gif">
-          <Notes>
-          </Notes>
+          <Notes />
         </ImageSlide>
 
         <ImageSlide inverted image="process-thread.jpg">
           <Notes>
             <p>thread subset of process</p>
             <p>threads of a process share the same memory</p>
-            <p>It is termed as a
-            ‘lightweight process’, since it is similar to a real process but
-            executes within the context of a process and shares the same
-            resources allotted to the process by the kernel.</p>
+            <p>
+              It is termed as a ‘lightweight process’, since it is similar to a
+              real process but executes within the context of a process and
+              shares the same resources allotted to the process by the kernel.
+            </p>
           </Notes>
         </ImageSlide>
 
-        <SimpleSlide
-          inverted
-          fit={false}
-          statement="So how is this relevant?"
-        >
-          <Notes><p>Well now we have these more robust machines we can do more things at once. How can we leverage our applications to do more things at once</p></Notes>
+        <SimpleSlide inverted fit={false} statement="So how is this relevant?">
+          <Notes>
+            <p>
+              Well now we have these more robust machines we can do more things
+              at once. How can we leverage our applications to do more things at
+              once
+            </p>
+          </Notes>
         </SimpleSlide>
 
         <ImageSlide inverted image="concurrency-vs-parallelism.png">
           <Notes>
-              <p>Let's say you have 5 people assembling 5 single bed</p>
-              <p>You can imagine that the instructions look pretty straight forward</p>
-              <p>Now imagine you had 5 people assembling a single bed</p>
-              <p> What would those instructions look like the instructions to ensure that no one has to wait for anyone
-              to finishe a step and we get a finished bed as a result</p>
-              <p>This feels a lot more complex</p>
+            <p>Let's say you have 5 people assembling 5 single bed</p>
+            <p>
+              You can imagine that the instructions look pretty straight forward
+            </p>
+            <p>Now imagine you had 5 people assembling a single bed</p>
+            <p>
+              {' '}
+              What would those instructions look like the instructions to ensure
+              that no one has to wait for anyone to finishe a step and we get a
+              finished bed as a result
+            </p>
+            <p>This feels a lot more complex</p>
           </Notes>
         </ImageSlide>
 
         <QuoteSlide
           inverted
           quote="“Concurrency is the composition of independently executing processes, while parallelism is the simultaneous execution of computations“"
-        >
-        </QuoteSlide>
+        />
         <SimpleSlide
           inverted
           fit={false}
@@ -216,7 +235,6 @@ export default class Presentation extends React.Component {
         >
           <Notes />
         </SimpleSlide>
-
 
         <SimpleSlide
           inverted
@@ -366,6 +384,11 @@ export default class Presentation extends React.Component {
               basically grows Expontentially as you add more threads and more
               state, rather than linearly
             </p>
+            <p>
+              And it's the problems with these approaches that lead to the
+              models we're going to look at in Elixir and Go for solving
+              concurrency issues
+            </p>
           </Notes>
         </ListSlide>
 
@@ -375,55 +398,62 @@ export default class Presentation extends React.Component {
           </Notes>
         </SimpleSlide>
 
-
         <SimpleSlide fit={false} statement="Invented by Carl Hewitt 1973">
-          <Notes>
-            Fun Fact
-          </Notes>
+          <Notes>Fun Fact</Notes>
         </SimpleSlide>
 
         <SimpleSlide fit={false} statement="Erlang created in 1986">
           <Notes>
-            <p>Creators of Erlang were not aware of the actor model
-              when they wrote erlang...which speaks to the promise of this
-              design pattern
+            <p>
+              Creators of Erlang were not aware of the actor model when they
+              wrote erlang...which speaks to the promise of this design pattern
             </p>
           </Notes>
         </SimpleSlide>
 
+        <SimpleSlide
+          fit={false}
+          statement="Conceptual model to deal with concurrent computation"
+        />
 
-        <SimpleSlide fit={false} statement="Conceptual model to deal with concurrent computation">
-
-        </SimpleSlide>
-
-        <SimpleSlide fit={false} statement="Defines some general rules for how the system’s
-            components should behave and interact with each other">
-        </SimpleSlide>
+        <SimpleSlide
+          fit={false}
+          statement="Defines some general rules for how the system’s
+            components should behave and interact with each other"
+        />
 
         <ImageSlide image="actor-model-mailbox.png">
           <Notes>
             <p>So this is an example of what it might look like</p>
             <p>What is going on here?</p>
-            <p>Each of these Circles has a mailbox and this little box that says internal state</p>
-            <p>Each of these units is an actor(and in Erlang/Elixir land is called a process)</p>
+            <p>
+              Each of these Circles has a mailbox and this little box that says
+              internal state
+            </p>
+            <p>
+              Each of these units is an actor(and in Erlang/Elixir land is
+              called a process)
+            </p>
             <p>This processes are completely isolated from each other</p>
             <p>not OS processes</p>
             <p>they communciate by sending messages to each other</p>
-            <p>They never share memory, which means they do not direcly share data</p>
-            <p>And each of these processes maintains and internal state that cannot be accesses directly by another process</p>
+            <p>
+              They never share memory, which means they do not direcly share
+              data
+            </p>
+            <p>
+              And each of these processes maintains and internal state that
+              cannot be accesses directly by another process
+            </p>
           </Notes>
         </ImageSlide>
-
-
 
         <QuoteSlide
           inverted
           quote="One ant is no ant."
           cite="https://www.brianstorti.com/the-actor-model/"
         >
-          <Notes>
-
-          </Notes>
+          <Notes />
         </QuoteSlide>
 
         <ImageSlide image="ant.gif">
@@ -432,33 +462,30 @@ export default class Presentation extends React.Component {
             <p>same idea for actors</p>
             <p>they come in systems</p>
             <p>in this model everything is an actor</p>
-            <p>each actor has a unique address so that it can send and
-              recive messages to other actors</p>
-
+            <p>
+              each actor has a unique address so that it can send and recive
+              messages to other actors
+            </p>
           </Notes>
         </ImageSlide>
 
-
-        <ImageSlide image="sending-mail.gif">
-
-        </ImageSlide>
+        <ImageSlide image="sending-mail.gif" />
 
         <ImageSlide image="actor-model-mailbox.png">
           <Notes>
-            <p>
-              Taking a close look at the sending of messages
-            </p>
+            <p>Taking a close look at the sending of messages</p>
             <p>we mentiomedd that each process has a unique addresss</p>
             <p>Messages are sent asynchorously and stored in the mailbox</p>
             <p>Actor recieves a message it can do one of 3 things</p>
             <p>create more actors</p>
             <p>send message to other actors</p>
-            <p>designate what to do with the next message - or essentially
-              update it's internal state which will be the staet used by the next message (essentially
-              how actors mutate state</p>
+            <p>
+              designate what to do with the next message - or essentially update
+              it's internal state which will be the staet used by the next
+              message (essentially how actors mutate state
+            </p>
           </Notes>
         </ImageSlide>
-
 
         <ListSlide
           inverted
@@ -470,41 +497,42 @@ export default class Presentation extends React.Component {
             'Have a unique ID'
           ]}
         >
-          <Notes>
-
-          </Notes>
+          <Notes />
         </ListSlide>
 
-        <SimpleSlide fit={false} statement="The Actor Model is Physically based"></SimpleSlide>
+        <SimpleSlide
+          fit={false}
+          statement="The Actor Model is Physically based"
+        />
 
         <ImageSlide image="switches.jpg">
           <Notes>
-            <p>
-              Built to model real world contraints of physical systems
-            </p>
-
+            <p>Built to model real world contraints of physical systems</p>
           </Notes>
         </ImageSlide>
 
         <ImageSlide image="telephone-lines.jpg">
           <Notes>
+            <p>over long distances</p>
             <p>
-              over long distances
+              This maded a necessity some of the functionality available in our
+              Elixir/Erlang Ecosystem
             </p>
-            <p>This maded a necessity some of the functionality available in our Elixir/Erlang Ecosystem</p>
           </Notes>
         </ImageSlide>
 
         <SimpleSlide inverted fit={false} statement="Distributed Elixir">
           <Notes>
-            <p>Each process has a unique ID - making it really easy to commmunicate
-              whether it be to a process on the same machine or across the world
+            <p>
+              Each process has a unique ID - making it really easy to
+              commmunicate whether it be to a process on the same machine or
+              across the world
             </p>
             <p>so processes communicate direclty with other processes</p>
             <p>
-              And given that a node can go down at any time - we would not want sending a
-              message normalize confiramtion of receiving a message ot be blocking - hence the asynchronous
-              nature of the message passing
+              And given that a node can go down at any time - we would not want
+              sending a message normalize confiramtion of receiving a message ot
+              be blocking - hence the asynchronous nature of the message passing
             </p>
             <p>messages are also not time bound in any sense</p>
           </Notes>
@@ -517,10 +545,14 @@ export default class Presentation extends React.Component {
           <Notes>
             <p>Erlang and Elixir allow for self healing systems</p>
 
-            <p>Erlang and Elixir have specialized proecesses that monitor other processes</p>
-            <p>back to coordination - if a part of our system breaks - we do not want to take down the whole system</p>
-
-
+            <p>
+              Erlang and Elixir have specialized proecesses that monitor other
+              processes
+            </p>
+            <p>
+              back to coordination - if a part of our system breaks - we do not
+              want to take down the whole system
+            </p>
           </Notes>
         </ImageSlide>
         <ImageSlide inverted image="fault-tolerance-harry-potter.gif">
@@ -558,7 +590,6 @@ export default class Presentation extends React.Component {
             </p>
           </Notes>
         </ImageSlide>
-
 
         <ListSlide
           inverted
@@ -624,7 +655,8 @@ export default class Presentation extends React.Component {
           <Notes>
             As within the actor model, a process refers to something pretty
             small, a unit of work. And most implementations of CSP implement
-            their version of a process on top of the OS
+            their version of a process on top of the OS, rather than relying on
+            the operating system itself
           </Notes>
         </SimpleSlide>
         <ImageSlide
@@ -690,41 +722,43 @@ export default class Presentation extends React.Component {
             <div>
               <p>
                 So this is a go program, and don't worry if you haven't seen go
-                before, just suspend your disbelief. Our goal here is to launch
-                to processes, have one send a message to a channel, have another
-                read from the channel and then have them both notify the parent
-                process that they're done
+                before, just suspend your disbelief.
+                <br />
+                Our goal here is to launch two processes, <br />
+                have one send a message to a channel, <br />
+                have another read from the channel
+                <br />
+                and then have them both notify the parent process that they're
+                done
               </p>
               <p>
-                So here we see our read function -- it takes a channel to read a
-                string from, and a channel to notify the parent it's done. Note
-                that in go channels are typed, and we use an empty "struct" when
-                we don't need to really transmit data but just want to say
+                This is our read function -- it takes a channel to read a string
+                from, and a channel to notify the parent it's done. <br />
+                Note that in go channels are typed, and we use an empty "struct"
+                when we don't need to really transmit data but just want to say
                 something happened
               </p>
               <p>
                 Here's our write function, which you can see just writes to a
                 channel and then notifies the parent its done
               </p>
-              <p>So here's our main function</p>
+              <p>And here's our main function</p>
               <p>
                 Go is pretty low level, so we actually need to initialize our
-                channels by telling go to allocate them. Though it is garbage
-                collected so we don't need to clean up
+                channels by telling go to allocate them. Go is garbage collected
+                so we don't need to clean then up
               </p>
               <p>
-                So here's where we kick of our read and write in parallel. Go's
-                equivalent of CSP processes are called go routines. I'm gonna
-                refer to them as go routines moving forward cause they are some
-                important differences with most definitions of a process in most
-                languages I'll explain in a second. In go, any function becomes
-                a go routine simply by putting the work go in front of it. So
-                here we kick off the read and the write in parallel, and we've
-                put the read before the write just to prove they're happening in
-                parallel
+                Here we kick of our read and write in parallel. Go's equivalent
+                of CSP processes are called go routines. I'm gonna refer to them
+                as go routines moving forward. <br />
+                In go, any function becomes a go routine simply by putting the
+                work go in front of it. So here we kick off the read and the
+                write in parallel, and we've put the read before the write just
+                to prove they're happening in parallel
               </p>
               <p>
-                So they both kick off, and then we read from our "done" channel
+                They both kick off, and then we read from our "done" channel
                 twice to wait for both to complete. We don't technically have to
                 do this, but if we didn't there's no gaurantee the finish
                 statement would happen last.
@@ -752,10 +786,10 @@ export default class Presentation extends React.Component {
           statement="Synchronous Channels = Coordination"
         >
           <Notes>
-            So a key thing to note here is every read and write to a channel is
-            synchronous. If you write to a channel, it will block until someone
-            else reads. So you can use channels to produce fairly predictable
-            behavior, if that's what you want
+            Every read and write to a channel is synchronous. If you write to a
+            channel, it will block until someone else reads. The result of this,
+            as you start to see in the example, is you can use channels to
+            produce fairly predictable behavior, if that's what you want
           </Notes>
         </SimpleSlide>
         <CodeSlide
@@ -763,56 +797,52 @@ export default class Presentation extends React.Component {
           notes={
             <div>
               <p>
-                Let's look at choice in CSP, using go's implementation of choice
-                via the select statement.
+                Let's look at Go's implementation of choice, and why we might
+                want to use it. Our scenario here is we're waiting for two
+                parallel blocking operations -- say reading user input and
+                waiting for a network request to complete.
               </p>
               <p>
-                So first we have a function that waits a given amount of time,
-                and then notifies that it's done.
+                So here we have two channels representing input coming back from
+                the user or the network
               </p>
               <p>
-                And here's our new main function, which will launch two
-                goroutines that sleep a random amount of time, and then it will
-                print which one finished first and which second, but importantly
-                won't take longer than the longer routine.
+                Since this is a demo, we're not really gonna read from the
+                network or from the user. So we'll make mock versions that just
+                wait a random among of time and then return a value we specify
               </p>
               <p>
-                So here are our two channels, just notifications that pass no
-                data
+                Here's the function to generate a "delayed response" function.
               </p>
               <p>
-                And now we kick off two go routines, that will each take a
-                random amount of time to complete.
+                And now we kick off two go routines, with simulated response
+                that will appear eventually, but we don't know when
               </p>
               <p>
-                So we want to print when each one finishes, but we don't know
-                which will be first, and we don't want to block by reading from
-                the wrong channel. So Here is a select statement. It looks like
-                a switch, but in this case it runs whichever statement can be
-                satisfied first. And we loop two times so we read from both
-                channels. One important thing to note -- if we'd had both go
-                routines complete at the same time, so that both channels had a
-                value, the select becomes non-deterministic -- there is no way
-                to know which case will run.
+                So let's figure out how to handle these responses. Here is a
+                select statement, Go's implementation of choice. It looks like a
+                switch, but in this case it runs whichever statement can be
+                satisfied first. So when we get user input or we get a network
+                response, we can respond to it.
               </p>
             </div>
           }
           lang="go"
-          code={require('raw-loader!../assets/selectexample.go')}
+          code={require('raw-loader!../assets/selectexample/selectexample.go')}
           ranges={[
             { loc: [0, 5], title: 'Choice in Go with select!' },
             {
-              loc: [8, 12],
-              note: 'A function that waits a given duration then notifies'
+              loc: [9, 11],
+              note: 'Channels for user input and network responses'
             },
-            { loc: [13, 29], note: 'Main function' },
-            { loc: [14, 16], note: 'Create the channels' },
+            { loc: [12, 14], note: 'Mock functions' },
+            { loc: [26, 33], note: 'FYI: Generate a delayed function' },
             {
-              loc: [16, 20],
-              note: 'Sleep random time on each channel'
+              loc: [14, 16],
+              note: 'Kick off operations in parallel'
             },
             {
-              loc: [20, 28],
+              loc: [16, 24],
               note: 'Read from both channels as soon as they are ready'
             }
           ]}
@@ -1071,7 +1101,37 @@ export default class Presentation extends React.Component {
         />
         <CodeSlide
           bgColor={colors.quartenary}
-          notes={<div />}
+          notes={
+            <div>
+              <p>
+                So this is a real pattern I use to simulate genservers in Go.
+                The things I like about gen servers are the isolation of state,
+                the ability to send messages to genservers and get a response,
+                the ability to pattern match on messages to generate a response,
+                and in Elixir, the nice apis you can build for their clients
+              </p>
+              <p>
+                We're gonna make a mock genserver that implements a counter we
+                increment, decrement, and read the value of
+              </p>
+              <p>message interface</p>
+              <p>
+                Here's we a function to build this counter and start it off.
+                Note it'll take a signal to kill the counter
+              </p>
+              <p>
+                Go offer's buffered channels, which provide a mechanism for
+                semi-non-blocking use
+              </p>
+              <p>Our API - increment</p>
+              <p>Decrement</p>
+              <p>Get value</p>
+              <p>The loop</p>
+              <p>Response to termination</p>
+              <p>Process a message</p>
+              <p>Message handlers</p>
+            </div>
+          }
           lang="go"
           code={require('raw-loader!../assets/genserver.go')}
           ranges={[
@@ -1091,8 +1151,6 @@ export default class Presentation extends React.Component {
             { loc: [29, 34], note: 'Send Decrement Command' },
             { loc: [39, 44], note: 'Get current value command' },
             { loc: [45, 55], note: 'Run loop' },
-            { loc: [48, 50], note: 'Check for termination' },
-            { loc: [50, 52], note: 'Handle a message' },
             { loc: [56, 67], note: 'Message handlers' }
           ]}
         />
