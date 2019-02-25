@@ -1167,26 +1167,26 @@ export default class Presentation extends React.Component {
           code={require('raw-loader!../assets/channels.ex')}
           ranges={[
             { loc: [0, 5], title: 'Channels in Elixir' },
-            {
-              loc: [0, 8],
-              note: 'Defining a queue'
-            },
-            {
-              loc: [9, 16],
-              note: 'Adding to queue'
-            },
-            { loc: [15, 18], note: 'return if buffered' },
-            { loc: [18, 22], note: 'Else Return value' },
-            { loc: [23, 27], note: 'Take from Queue' },
-            { loc: [25, 28], note: 'return if empty' },
-            { loc: [28, 32], note: 'Else return new queue' },
+            { loc: [0, 8], note: 'Defining a queue'},
+            { loc: [9, 11], note: 'Adding to queue'},
+            { loc: [11, 12], note: 'if queue unbuffered'},
+            { loc: [12, 14], note: 'add item to queue and return'},
+            { loc: [14, 16], note: 'if buffered - check length of queue'},
+            { loc: [16, 17], note: 'if queue full- return existing'},
+            { loc: [17, 19], note: 'otherwise add item to queue queue'},
+            { loc: [23, 24], note: 'Taking items from queue'},
+            { loc: [25, 27], note: 'check length of queue'},
+            { loc: [26, 28], note: 'if empty return empty queue'},
+            { loc: [29, 31], note: 'otherwise return value'},
             { loc: [36, 45], note: 'Create GenServer' },
-            { loc: [46, 50], note: 'Initialize Channel' },
-            { loc: [52, 57], note: 'Buffered channel' },
-            { loc: [59, 62], note: 'blocking response if no value' },
-            { loc: [63, 65], note: 'return updated queue' },
-            { loc: [67, 73], note: 'block if queue full' },
-            { loc: [72, 76], note: 'return when queue updated' }
+            { loc: [46, 50], note: 'Initialize unbuffered channel' },
+            { loc: [54, 55], note: 'or intialize buffered channel' },
+            { loc: [58, 59], note: 'implement callback for pulling from queue' },
+            { loc: [60, 62], note: 'if empty, block response to caller' },
+            { loc: [63, 65], note: 'else return updated queue' },
+            { loc: [68, 69], note: 'callback for adding to queue' },
+            { loc: [70, 72], note: 'block if queue full' },
+            { loc: [74, 76], note: 'return when queue updated' }
           ]}
         />
 
