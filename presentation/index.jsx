@@ -1196,12 +1196,38 @@ export default class Presentation extends React.Component {
           fit={false}
           concept="Lesson"
           description="Don't be limited by your language"
-        />
+        >
+          <Notes>
+            <div>
+              <p>
+                We recognize that many decisions factor in to selecting the tools that we use to
+                build software inside any given org
+              </p>
+              <p>
+                One of the thoughts we want to leave you with is to not be limited by the paradigms
+                of the language you have chosen
+              </p>
+              <p>
+                Often when working inside of a particular construct, our though process
+                can be confined to within the walls of that construct.
+              </p>
+              <p>
+                It is possible to implement paradigms from other languages into your current construct
+              </p>
+              <p>
+                Although keep in mind that it may feel awkward - since a languages tends to lend
+                itself better to certain paradigms
+              </p>
+            </div>
+          </Notes>
+        </ConceptSlide>
         <SimpleSlide
           inverted
           fit={false}
           statement="We don't always choose our language."
-        />
+        ><Notes>
+          
+        </Notes></SimpleSlide>
 
         <SimpleSlide
           inverted
