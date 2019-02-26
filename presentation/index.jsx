@@ -1208,26 +1208,35 @@ export default class Presentation extends React.Component {
                 of the language you have chosen
               </p>
               <p>
-                Often when working inside of a particular construct, our though process
+                Often when working inside of a particular construct, our thought process
                 can be confined to within the walls of that construct.
               </p>
               <p>
-                It is possible to implement paradigms from other languages into your current construct
+                As you have seen - it is possible to implement paradigms from other languages into your current context
               </p>
               <p>
-                Although keep in mind that it may feel awkward - since a languages tends to lend
+                Although we recognize that it may feel awkward - since a languages tends to lend
                 itself better to certain paradigms
+              </p>
+              <p>It is also important to note that we don't always choose our language</p>
+              <p>and Choice of lanuage is one of many decisions we must make</p>
+              <p>WE hope this talk shed light into teh nuances between these two paradigms and added some
+                elements to your toolbox when deciding what language to build in next
               </p>
             </div>
           </Notes>
         </ConceptSlide>
-        <SimpleSlide
+        {/* <SimpleSlide
           inverted
           fit={false}
           statement="We don't always choose our language."
         ><Notes>
-          
-        </Notes></SimpleSlide>
+          <div>
+            <p>
+              That being said
+            </p>
+          </div>
+        </Notes></SimpleSlide> */}
 
         <SimpleSlide
           inverted

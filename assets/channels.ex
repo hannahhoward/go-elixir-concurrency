@@ -32,7 +32,7 @@ def new(max_size) do
         {{ :value, item },{ new_queue, len - 1, buffer}}
     end
   end
-end
+end\
 
 defmodule ElixirConcurrency.Server do
  use GenServer
