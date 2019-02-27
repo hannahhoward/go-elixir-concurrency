@@ -1245,14 +1245,8 @@ export default class Presentation extends React.Component {
           ]}
         />
 
-        <SimpleSlide statement="Conclusions" />
-        <ConceptSlide
-          inverted
-          fit={false}
-          concept="Lesson"
-          description="Don't be limited by your language"
-        >
-          <Notes>
+        <SimpleSlide statement="Conclusions">
+        <Notes>
             <div>
               <p>
                 We've seen how two different languages approached the problem of coordination as it relates to concurrency.
@@ -1284,7 +1278,16 @@ export default class Presentation extends React.Component {
               </p>
             </div>
           </Notes>
-        </ConceptSlide>
+
+        </SimpleSlide>
+        {/* <ConceptSlide
+          inverted
+          fit={false}
+          concept="Lesson"
+          description="Conclusions"
+        >
+
+        </ConceptSlide> */}
         <ImageSlide
           title="Thank you!"
           image="poohbear.jpg"
