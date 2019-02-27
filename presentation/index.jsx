@@ -201,7 +201,7 @@ export default class Presentation extends React.Component {
           <Notes>
             <p>
               Well now we have these more robust machines we can do more things
-              at once. How can we leverage our applications to do more things at
+              at once. How can we leverage our applications efficiently to do more things at
               once
             </p>
           </Notes>
@@ -209,6 +209,8 @@ export default class Presentation extends React.Component {
 
         <ImageSlide inverted image="concurrency-vs-parallelism.png">
           <Notes>
+            <p>So I want to come back to how we define concurrency</p>
+            <p> And think about the following example</p>
             <p>Let's say you have 5 people assembling 5 single bed</p>
             <p>
               You can imagine that the instructions look pretty straight forward
@@ -220,14 +222,20 @@ export default class Presentation extends React.Component {
               that no one has to wait for anyone to finishe a step and we get a
               finished bed as a result
             </p>
-            <p>This feels a lot more complex</p>
+            <p>I don't know about you, but to me this this feels a lot more complex</p>
           </Notes>
         </ImageSlide>
 
         <QuoteSlide
           inverted
           quote="“Concurrency is the composition of independently executing processes, while parallelism is the simultaneous execution of computations“"
-        />
+        >
+        <Notes>
+          <div>
+            <p>If we look at how we might define concurrency</p>
+          </div>
+        </Notes>
+        </QuoteSlide>
         <SimpleSlide
           inverted
           fit={false}
@@ -241,7 +249,21 @@ export default class Presentation extends React.Component {
           fit={false}
           statement="Concurrency is about dealing with many things at once. It's focus is structure"
         >
-          <Notes>It requires coordination</Notes>
+          <Notes></Notes>
+        </SimpleSlide>
+
+
+        <SimpleSlide
+          inverted
+          fit={false}
+          statement="This requires coordination"
+        >
+          <Notes>
+            <div>
+              <p>
+                And as we know...
+              </p>
+            </div></Notes>
         </SimpleSlide>
 
         <SimpleSlide
@@ -503,10 +525,17 @@ export default class Presentation extends React.Component {
         <SimpleSlide
           fit={false}
           statement="The Actor Model is Physically based"
-        />
+        ><Notes>
+          <div>
+            <p>The interesthing thing about the Actor model in Elixir/Erlang land is that it is physically based</p>
+            <p>Well what do I mean by that?</p>
+          </div>
+          </Notes></SimpleSlide>
 
         <ImageSlide image="switches.jpg">
           <Notes>
+            <p>who still has a landline?</p>
+            <p>when was the last time a call was dropped on that line</p>
             <p>Built to model real world contraints of physical systems</p>
           </Notes>
         </ImageSlide>
@@ -515,7 +544,7 @@ export default class Presentation extends React.Component {
           <Notes>
             <p>over long distances</p>
             <p>
-              This maded a necessity some of the functionality available in our
+              This necessitated the patterns and functionality made available in our
               Elixir/Erlang Ecosystem
             </p>
           </Notes>
@@ -523,6 +552,9 @@ export default class Presentation extends React.Component {
 
         <SimpleSlide inverted fit={false} statement="Distributed Elixir">
           <Notes>
+            <p>One of those pieces of functionality being distribution</p>
+            <p> I want to qualify a bit because as with anything there are challenges at scale</p>
+            <p>but it is still something we have easy acess to</p>
             <p>
               Each process has a unique ID - making it really easy to
               commmunicate whether it be to a process on the same machine or
@@ -531,22 +563,29 @@ export default class Presentation extends React.Component {
             <p>so processes communicate direclty with other processes</p>
             <p>
               And given that a node can go down at any time - we would not want
-              sending a message normalize confiramtion of receiving a message ot
+              sending a message nor confiramtion of receiving a message to
               be blocking - hence the asynchronous nature of the message passing
             </p>
             <p>messages are also not time bound in any sense</p>
           </Notes>
         </SimpleSlide>
         <SimpleSlide inverted fit={false} statement="Let it Crash">
-          <Notes />
+          <Notes>
+            <div>
+              <p>
+                We have all heard this phrase
+              </p>
+            </div>
+          </Notes>
         </SimpleSlide>
 
         <ImageSlide inverted image="fault-tolerance.png">
           <Notes>
             <p>Erlang and Elixir allow for self healing systems</p>
+            <p>Remember that we were thinkign of real world constraints of physical systems</p>
 
             <p>
-              Erlang and Elixir have specialized proecesses that monitor other
+              We have have specialized proecesses that monitor other
               processes
             </p>
             <p>
@@ -560,7 +599,9 @@ export default class Presentation extends React.Component {
         </ImageSlide>
 
         <SimpleSlide inverted fit={false} statement="The BEAM">
-          <Notes />
+          <Notes>
+            How does any of this run
+          </Notes>
         </SimpleSlide>
 
         <SimpleSlide inverted fit={false} statement="Preemptive scheduling">
