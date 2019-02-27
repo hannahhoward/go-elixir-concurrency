@@ -1267,23 +1267,6 @@ export default class Presentation extends React.Component {
             </div>
           </Notes>
         </ConceptSlide>
-        {/* <SimpleSlide
-          inverted
-          fit={false}
-          statement="We don't always choose our language."
-        ><Notes>
-          <div>
-            <p>
-              That being said
-            </p>
-          </div>
-        </Notes></SimpleSlide> */}
-
-        <SimpleSlide
-          inverted
-          fit={false}
-          statement="Choice of lanuage is one of many decisions we must make"
-        />
         <ImageSlide
           title="Thank you!"
           image="poohbear.jpg"
