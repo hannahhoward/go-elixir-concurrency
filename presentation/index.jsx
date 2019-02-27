@@ -1241,28 +1241,32 @@ export default class Presentation extends React.Component {
           <Notes>
             <div>
               <p>
-                We recognize that many decisions factor in to selecting the tools that we use to
-                build software inside any given org
+                We've seen how two different languages approached the problem of coordination as it relates to concurrency.
+              </p>
+              <p>
+                Each languages approach was guided by the specific problems it was trying solve
+              </p>
+              <p>
+                If you understand the problems each approach intends to solve, you can choose the right tool for the jobs
+              </p>
+              <p>
+                Unfortunately, many factors go into choosing a language to build your software in, apart from concurrency, and sometimes
+                the choice is made for you.
               </p>
               <p>
                 One of the thoughts we want to leave you with is to not be limited by the paradigms
-                of the language you have chosen
+                of the language
               </p>
               <p>
                 Often when working inside of a particular construct, our thought process
                 can be confined to within the walls of that construct.
               </p>
               <p>
-                As you have seen - it is possible to implement paradigms from other languages into your current context
+                If you understand the patterns and approaches of many languages, as you have seen -
+                it is possible to adopt paradigms from other languages into your current context
               </p>
               <p>
-                Although we recognize that it may feel awkward - since a languages tends to lend
-                itself better to certain paradigms
-              </p>
-              <p>It is also important to note that we don't always choose our language</p>
-              <p>and Choice of lanuage is one of many decisions we must make</p>
-              <p>WE hope this talk shed light into teh nuances between these two paradigms and added some
-                elements to your toolbox when deciding what language to build in next
+                Although we recognize that it may feel awkward, depending on the problem you are trying to solve, it still might be the most elegant solution
               </p>
             </div>
           </Notes>
