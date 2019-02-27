@@ -54,14 +54,28 @@ export default class Presentation extends React.Component {
       >
         <AboutMeSlide>
           <Notes>
+            <p>Anna: Hi Everyone!</p>
             <p>
-              This is just the introductory slide I use, we can remake for our
-              own purposes.
+              Anna: Before we get started we're gonna briefly introduce
+              ourselves
             </p>
             <p>
-              Note for all slides you can use a notes tag in children to
-              specific presenter notes, and those notes support HTML
+              Anna: I'm Anna, I'm a developer at Carbon Five. That's my contact
+              info there.
             </p>
+            <p>
+              Hannah: I'm Hannah, I'm also a developer at Carbon Five. And
+              there's my contact info as well.
+            </p>
+            <p>
+              Hannah: Carbon Five for those who don't know is a product
+              development agency. We work with all kinds of clients, from small
+              startups to large corporations, to turn their ideas, no matter
+              what stage they're at, into working software. We're hiring and
+              we're hirable. If you'd like to know more, you can come find
+              either of us after the talk is over.
+            </p>
+            <p>Hannah: And now I'll turn it over to Anna to kick this off.</p>
           </Notes>
         </AboutMeSlide>
         <DoubleImageSlide

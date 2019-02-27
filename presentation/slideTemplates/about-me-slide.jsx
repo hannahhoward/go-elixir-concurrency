@@ -50,7 +50,7 @@ const AboutMeSlide = ({ children }) => {
     <FullScreen column>
       <Row style={{ flexShrink: 0 }}>
         <Heading size={1} fit caps lineHeight={1} textColor="quartenary">
-          Hannah + Anna #AboutUs
+          Anna + Hannah #AboutUs
         </Heading>
       </Row>
       <Row>
@@ -67,7 +67,7 @@ const AboutMeSlide = ({ children }) => {
           </Column>
         </Appear>
 
-        <Appear order={1}>
+        <Appear order={2}>
           <Column>
             <Image src={tgwLogo} style={imageStyle} />
             <Text>
