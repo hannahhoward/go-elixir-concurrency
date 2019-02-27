@@ -1159,32 +1159,61 @@ export default class Presentation extends React.Component {
           notes={
             <div>
               <p>
-                So this is a real pattern I use to simulate genservers in Go.
-                The things I like about gen servers are the isolation of state,
-                the ability to send messages to genservers and get a response,
-                the ability to pattern match on messages to generate a response,
-                and in Elixir, the nice apis you can build for their clients
+                Now I'm going to show you now a real pattern I use to simulate
+                genservers in Go.
               </p>
               <p>
                 We're gonna make a mock genserver that implements a counter we
-                increment, decrement, and read the value of
+                increment, decrement, and read the value of. To make our counter
+                work, it'll have a message channel and some internal state.
+                There's no direct mechanism to keep the internal state from
+                being touched outside the counters's go-routine, so we use the
+                low-tech version a.k.a. a comment to other programmers. It is at
+                least private so you can't touch it from code outside this
+                module
               </p>
-              <p>message interface</p>
               <p>
-                Here's we a function to build this counter and start it off.
-                Note it'll take a signal to kill the counter
+                We're going to want a channel of messages we can send to the
+                GenServer. We're going to use a go construct called an interface
+                to simulate multiple types of messages we might send the
+                genserver. Basically, a message interface is any type that has a
+                handle method.
+              </p>
+              <p>
+                Here's a function to build a counter and start it off. You can
+                think of this as our start_link Go doesn't have easy supervision
+                mechanisms, but we still need a way to tell this process to shut
+                down. So take a channel which can be used to kill the counter.
               </p>
               <p>
                 Go offer's buffered channels, which provide a mechanism for
-                semi-non-blocking use
+                semi-non-blocking use -- meaning our messages are asynchronous
+                up to a point
               </p>
-              <p>Our API - increment</p>
-              <p>Decrement</p>
-              <p>Get value</p>
-              <p>The loop</p>
-              <p>Response to termination</p>
-              <p>Process a message</p>
-              <p>Message handlers</p>
+              <p>
+                Here are the functions we use to build a nice client API for
+                this genserver -- these are functions you can call that will
+                send messages to the counter for processing
+              </p>
+              <p>
+                This is one last client function to read the current counter
+                function, and this one is interesting, cause it needs a
+                response, like a GenServer call. So what we do is send a
+                response channel in the message to the counter, on to which the
+                counter can write the response. And then we wait and read the
+                response from the channel in this function
+              </p>
+              <p>
+                Here's the actual processing loop for the channel. You can see
+                all it does is read messages and handle them, while also
+                checking the done channel to see if we should shut down
+              </p>
+              <p>
+                And here are our message handlers. Go is somewhat object
+                oriented so we're using a kind of dynamic dispatch here.
+                Basically, the message type implements it's own handle message,
+                so based on the message typed we'll process it differently.
+              </p>
             </div>
           }
           lang="go"
@@ -1202,8 +1231,7 @@ export default class Presentation extends React.Component {
             { loc: [13, 22], note: 'New function' },
             { loc: [16, 17], note: 'Buffered Channel ~= Asynchronous' },
             { loc: [19, 20], note: 'Fire up process' },
-            { loc: [23, 28], note: 'Send Increment Command' },
-            { loc: [29, 34], note: 'Send Decrement Command' },
+            { loc: [23, 34], note: 'Client Functions - Increment/Decrement' },
             { loc: [39, 44], note: 'Get current value command' },
             { loc: [45, 55], note: 'Run loop' },
             { loc: [56, 67], note: 'Message handlers' }
