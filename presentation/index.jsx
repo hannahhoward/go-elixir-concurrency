@@ -215,7 +215,7 @@ export default class Presentation extends React.Component {
           <Notes>
             <p>
               Well now we have these more robust machines we can do more things
-              at once. How can we leverage our applications to do more things at
+              at once. How can we leverage our applications efficiently to do more things at
               once
             </p>
           </Notes>
@@ -223,6 +223,8 @@ export default class Presentation extends React.Component {
 
         <ImageSlide inverted image="concurrency-vs-parallelism.png">
           <Notes>
+            <p>So I want to come back to how we define concurrency</p>
+            <p> And think about the following example</p>
             <p>Let's say you have 5 people assembling 5 single bed</p>
             <p>
               You can imagine that the instructions look pretty straight forward
@@ -234,14 +236,20 @@ export default class Presentation extends React.Component {
               that no one has to wait for anyone to finishe a step and we get a
               finished bed as a result
             </p>
-            <p>This feels a lot more complex</p>
+            <p>I don't know about you, but to me this this feels a lot more complex</p>
           </Notes>
         </ImageSlide>
 
         <QuoteSlide
           inverted
           quote="“Concurrency is the composition of independently executing processes, while parallelism is the simultaneous execution of computations“"
-        />
+        >
+        <Notes>
+          <div>
+            <p>If we look at how we might define concurrency</p>
+          </div>
+        </Notes>
+        </QuoteSlide>
         <SimpleSlide
           inverted
           fit={false}
@@ -255,7 +263,21 @@ export default class Presentation extends React.Component {
           fit={false}
           statement="Concurrency is about dealing with many things at once. It's focus is structure"
         >
-          <Notes>It requires coordination</Notes>
+          <Notes></Notes>
+        </SimpleSlide>
+
+
+        <SimpleSlide
+          inverted
+          fit={false}
+          statement="This requires coordination"
+        >
+          <Notes>
+            <div>
+              <p>
+                And as we know...
+              </p>
+            </div></Notes>
         </SimpleSlide>
 
         <SimpleSlide
@@ -517,10 +539,17 @@ export default class Presentation extends React.Component {
         <SimpleSlide
           fit={false}
           statement="The Actor Model is Physically based"
-        />
+        ><Notes>
+          <div>
+            <p>The interesthing thing about the Actor model in Elixir/Erlang land is that it is physically based</p>
+            <p>Well what do I mean by that?</p>
+          </div>
+          </Notes></SimpleSlide>
 
         <ImageSlide image="switches.jpg">
           <Notes>
+            <p>who still has a landline?</p>
+            <p>when was the last time a call was dropped on that line</p>
             <p>Built to model real world contraints of physical systems</p>
           </Notes>
         </ImageSlide>
@@ -529,7 +558,7 @@ export default class Presentation extends React.Component {
           <Notes>
             <p>over long distances</p>
             <p>
-              This maded a necessity some of the functionality available in our
+              This necessitated the patterns and functionality made available in our
               Elixir/Erlang Ecosystem
             </p>
           </Notes>
@@ -537,6 +566,9 @@ export default class Presentation extends React.Component {
 
         <SimpleSlide inverted fit={false} statement="Distributed Elixir">
           <Notes>
+            <p>One of those pieces of functionality being distribution</p>
+            <p> I want to qualify a bit because as with anything there are challenges at scale</p>
+            <p>but it is still something we have easy acess to</p>
             <p>
               Each process has a unique ID - making it really easy to
               commmunicate whether it be to a process on the same machine or
@@ -545,22 +577,29 @@ export default class Presentation extends React.Component {
             <p>so processes communicate direclty with other processes</p>
             <p>
               And given that a node can go down at any time - we would not want
-              sending a message normalize confiramtion of receiving a message ot
+              sending a message nor confiramtion of receiving a message to
               be blocking - hence the asynchronous nature of the message passing
             </p>
             <p>messages are also not time bound in any sense</p>
           </Notes>
         </SimpleSlide>
         <SimpleSlide inverted fit={false} statement="Let it Crash">
-          <Notes />
+          <Notes>
+            <div>
+              <p>
+                We have all heard this phrase
+              </p>
+            </div>
+          </Notes>
         </SimpleSlide>
 
         <ImageSlide inverted image="fault-tolerance.png">
           <Notes>
             <p>Erlang and Elixir allow for self healing systems</p>
+            <p>Remember that we were thinkign of real world constraints of physical systems</p>
 
             <p>
-              Erlang and Elixir have specialized proecesses that monitor other
+              We have have specialized proecesses that monitor other
               processes
             </p>
             <p>
@@ -574,7 +613,9 @@ export default class Presentation extends React.Component {
         </ImageSlide>
 
         <SimpleSlide inverted fit={false} statement="The BEAM">
-          <Notes />
+          <Notes>
+            How does any of this run
+          </Notes>
         </SimpleSlide>
 
         <SimpleSlide inverted fit={false} statement="Preemptive scheduling">
@@ -1181,26 +1222,26 @@ export default class Presentation extends React.Component {
           code={require('raw-loader!../assets/channels.ex')}
           ranges={[
             { loc: [0, 5], title: 'Channels in Elixir' },
-            {
-              loc: [0, 8],
-              note: 'Defining a queue'
-            },
-            {
-              loc: [9, 16],
-              note: 'Adding to queue'
-            },
-            { loc: [15, 18], note: 'return if buffered' },
-            { loc: [18, 22], note: 'Else Return value' },
-            { loc: [23, 27], note: 'Take from Queue' },
-            { loc: [25, 28], note: 'return if empty' },
-            { loc: [28, 32], note: 'Else return new queue' },
+            { loc: [0, 8], note: 'Defining a queue'},
+            { loc: [9, 11], note: 'Adding to queue'},
+            { loc: [11, 12], note: 'if queue unbuffered'},
+            { loc: [12, 14], note: 'add item to queue and return'},
+            { loc: [14, 16], note: 'if buffered - check length of queue'},
+            { loc: [16, 17], note: 'if queue full- return existing'},
+            { loc: [17, 19], note: 'otherwise add item to queue queue'},
+            { loc: [23, 24], note: 'Taking items from queue'},
+            { loc: [25, 27], note: 'check length of queue'},
+            { loc: [26, 28], note: 'if empty return empty queue'},
+            { loc: [29, 31], note: 'otherwise return value'},
             { loc: [36, 45], note: 'Create GenServer' },
-            { loc: [46, 50], note: 'Initialize Channel' },
-            { loc: [52, 57], note: 'Buffered channel' },
-            { loc: [59, 62], note: 'blocking response if no value' },
-            { loc: [63, 65], note: 'return updated queue' },
-            { loc: [67, 73], note: 'block if queue full' },
-            { loc: [72, 76], note: 'return when queue updated' }
+            { loc: [46, 50], note: 'Initialize unbuffered channel' },
+            { loc: [54, 55], note: 'or intialize buffered channel' },
+            { loc: [58, 59], note: 'implement callback for pulling from queue' },
+            { loc: [60, 62], note: 'if empty, block response to caller' },
+            { loc: [63, 65], note: 'else return updated queue' },
+            { loc: [68, 69], note: 'callback for adding to queue' },
+            { loc: [70, 72], note: 'block if queue full' },
+            { loc: [74, 76], note: 'return when queue updated' }
           ]}
         />
 
@@ -1210,18 +1251,40 @@ export default class Presentation extends React.Component {
           fit={false}
           concept="Lesson"
           description="Don't be limited by your language"
-        />
-        <SimpleSlide
-          inverted
-          fit={false}
-          statement="We don't always choose our language."
-        />
-
-        <SimpleSlide
-          inverted
-          fit={false}
-          statement="Choice of lanuage is one of many decisions we must make"
-        />
+        >
+          <Notes>
+            <div>
+              <p>
+                We've seen how two different languages approached the problem of coordination as it relates to concurrency.
+              </p>
+              <p>
+                Each languages approach was guided by the specific problems it was trying solve
+              </p>
+              <p>
+                If you understand the problems each approach intends to solve, you can choose the right tool for the jobs
+              </p>
+              <p>
+                Unfortunately, many factors go into choosing a language to build your software in, apart from concurrency, and sometimes
+                the choice is made for you.
+              </p>
+              <p>
+                One of the thoughts we want to leave you with is to not be limited by the paradigms
+                of the language
+              </p>
+              <p>
+                Often when working inside of a particular construct, our thought process
+                can be confined to within the walls of that construct.
+              </p>
+              <p>
+                If you understand the patterns and approaches of many languages, as you have seen -
+                it is possible to adopt paradigms from other languages into your current context
+              </p>
+              <p>
+                Although we recognize that it may feel awkward, depending on the problem you are trying to solve, it still might be the most elegant solution
+              </p>
+            </div>
+          </Notes>
+        </ConceptSlide>
         <ImageSlide
           title="Thank you!"
           image="poohbear.jpg"
