@@ -6,8 +6,8 @@ module.exports = function(shipit) {
   shipit.initConfig({
     default: {
       workspace: '/Users/hannah/.shipit',
-      deployTo: '/var/www/reactivex-talk.techgirlwonder.com',
-      repositoryUrl: 'git@github.com:hannahhoward/reactivex-talk.git',
+      deployTo: '/var/www/concurrency.techgirlwonder.com',
+      repositoryUrl: 'git@github.com:hannahhoward/go-elixir-concurrency.git',
       ignores: ['.git', 'node_modules'],
       keepReleases: 2,
       deleteOnRollback: false
