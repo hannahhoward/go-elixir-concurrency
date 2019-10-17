@@ -293,9 +293,13 @@ export default class Presentation extends React.Component {
           statement="How do we coordinate between tasks working together?"
         >
           <Notes>
-            So I'm going to shift gears and talk about coordination for a bit --
+            So I'm going to shift gears and talk about how we have traditioanllu
+            dealt wit coordination for a bit --
             how we organize work between multiple potentially paraellel tasks
             that are working together?
+
+            So we have these processors that can run multiple things at once
+            and we want to get things done faster.
           </Notes>
         </SimpleSlide>
         <ImageSlide
@@ -306,6 +310,9 @@ export default class Presentation extends React.Component {
           text="Concurrency Without Coordination"
         >
           <Notes>
+            <p>The problem with having no coordination and just relying on parallelism
+              is it doesn't actually get things done faster.
+            </p>
             <p>First of all let's talk about why we need to coordinate.</p>
 
             <p>
@@ -315,8 +322,11 @@ export default class Presentation extends React.Component {
 
             <p>
               But multiple things happening in parallel, doesn't neccesarily
-              accomplish anything, as this somewhat infamous NCIS image shows
+              accomplish anything, as this somewhat infamous NCIS image shows - two hands on
+              a keyboard don't type faster.
             </p>
+
+            <p>So how do we coordinate?</p>
           </Notes>
         </ImageSlide>
         <ListSlide
@@ -330,7 +340,25 @@ export default class Presentation extends React.Component {
           ]}
         >
           <Notes>
+            <p>so the original solution is to use this concept of threads</p>
+            <p>threads are this build in concept in most operating systems </p>
+            <p>they are independently exectuing subsets of a process</p>
+            <p>and ghey share memory</p>
+            <p>because they share memory they hace acces to teh same data</p>
+            <p>so the strategy that has been used traditioanlly is to communcaite by mutatin is these
+              shared setes of data</p>
+
+            <p>the metaphor I think of here - is if you imagine 2 people
+              working on a painting and the painting is in the room and then
+              one person walks into teh room and makes some changes and htey leave
+              and then another person walks into the room and they see what the last
+              person did and then they make some changes and htey leave and the other person goes back in
+               </p>
+            <p>You are seeing what the other person is doing but you are not actually seeing the other person</p>
+            <p>You have no way to directly communicate with them</p>
+
             <p>
+
               So the simplest way to do this, and the way it's been done
               traditionally, is to use the fact that threads share the same
               memory space.
@@ -340,10 +368,12 @@ export default class Presentation extends React.Component {
               mutations to communicate the work we're doing
             </p>
             <p>
-              We have to be careful cause we don't want to override each others
-              work, so we'll need various locking mechanisms to serialize access
-              to data structures -- some of the most common are called mutexs
-              and semaphores
+              So there is the potential pitfall that we don't want to overrride each others work - so
+              So in most languages that deal with threaded programming they have these locking mechanisms
+               so we'll need various locking mechanisms that essentially serialize access
+              to these data structures -- some of the most common are called mutexs
+              and semaphores - there are a gew otehrs. But pretty straightforward ways of locking access
+              to these data structures
             </p>
           </Notes>
         </ListSlide>
@@ -360,6 +390,7 @@ export default class Presentation extends React.Component {
             communicating through sharing data is something you basically can
             get for free. Maybe you need a few locking mechanism, but they're
             generally really simple.
+
           </Notes>
         </ImageSlide>
         <SimpleSlide
@@ -406,11 +437,20 @@ export default class Presentation extends React.Component {
               with this approach
             </p>
             <p>
-              First of all, the entire mechanism is dependent on shared, mutable
-              state. And as functional programmers, we know this has all kinds
-              of unpredictabiity
+              First of all,  you are dealing with coordination that is dependent upon on a
+              giant chunk of shared, mutable state. And as functional
+              programmers, we know this has all kinds
+              of unpredictabiity - this feels like the right conference - where I don't have to
+              pitch the value of not having giant chunks of mutable state that you constantly interact with
             </p>
             <p>
+              In order to use these serializing mechanisms you are relying on a
+              programmer to lock access to the data structure so they can do something
+              and then unlock it once they are done.
+              So what happens if they forget to unlock it?
+              Well then anyone else who tries to get access to that data structure
+              is probably going to find their program locked. You can actually end up
+              locking the entire program this way - which is not good.
               Second, who writes first gets very unpredictable, and if you use
               locking mechanisms and you forget to unlock, you can freeze your
               program
@@ -423,7 +463,7 @@ export default class Presentation extends React.Component {
             <p>
               And it's the problems with these approaches that lead to the
               models we're going to look at in Elixir and Go for solving
-              concurrency issues
+             issues of dealing with concurrency
             </p>
           </Notes>
         </ListSlide>
@@ -689,6 +729,7 @@ export default class Presentation extends React.Component {
             Communicating Sequential Processes, a system for describing
             coordinated work among independent processes first described by Tony
             Hoare in 1978
+            70s were a good decade for distributes systems papers
           </Notes>
         </DefinitionSlide>
         <ImageSlide
@@ -703,7 +744,7 @@ export default class Presentation extends React.Component {
             <br />
             Essentially something that has a start and an end.
             <br />I like to imagine a sprinter -- someone who goes from a
-            defined start to a defined finish. <br />
+            defined start - runs as long as it can to a defined finish. <br />
           </Notes>
         </ImageSlide>
         <SimpleSlide inverted statement="CSP Process != OS Process">
@@ -712,6 +753,7 @@ export default class Presentation extends React.Component {
             small, a unit of work. And most implementations of CSP implement
             their version of a process on top of the OS, rather than relying on
             the operating system itself
+            So how do you coordinate with these processes
           </Notes>
         </SimpleSlide>
         <ImageSlide
@@ -723,12 +765,16 @@ export default class Presentation extends React.Component {
           <Notes>
             So if you have sprinters, small processes, how do you coordinate
             them? <br />
-            Well lets imagine a relay race. The next sprinter waits till they
-            get the baton <br />
-            So you have processes, the sprinters, and they communicate, but they
+            Well lets imagine a relay race. The sprinter is running and they have this baton,
+            and the hand it of to the next person. The next sprinter waits till they
+            get the baton then they take off.  <br />
+            The baton in this case is called a channel -
+            and it is basically the mechanism through which i communicate to another
+            process to tell it to start doing its work.
+            {/* So you have processes, the sprinters, and they communicate, but they
             do it sequentially -- as in the messages they pass back and forth
             are sequentional in the sense that every read and write to a message
-            channel can block the process
+            channel can block the process */}
           </Notes>
         </ImageSlide>
         <SimpleSlide
@@ -738,10 +784,15 @@ export default class Presentation extends React.Component {
         >
           <Notes>
             One important difference from the traditional relay race is
-            processes only know about channels. <br />
+            processes don't know about other processes in CSP. They
+            only know about channels. <br />
             So you can imagine the sprinter hands off the baton, but they don't
             know who they're going to hand off to -- <br />
-            they just wait to hand off to the first person who's there
+            they just wait to hand off to the first person who's there.
+            Not only that but this passing of the baton is a syncrhonous process. If I run to the
+            end of the relay and am ready to hand of the baton and no one is there to take it - I am stuck.
+            The message passing is syncrhonous and so I basically need someone else to read the message
+            I put in a channel before I can do anything else.
           </Notes>
         </SimpleSlide>
 
@@ -751,15 +802,19 @@ export default class Presentation extends React.Component {
           definition="Processes choose behavior by listening on multiple channels"
         >
           <Notes>
-            <p>
+            <p>The last concept that is essential to this CSP model is this idea of choice. We are now approaching
+              a very theoretical relay race. </p>
+
+            {/* <p>
               A key additional element is that a process can at a given point,
               listen to multiple channels, and behave differently depending on
               which channel produces a message.
-            </p>
+            </p> */}
             <p>
               So imagine a runner waiting for a baton, but they'll take a gold
               baton from one runner or a silver from another, whoever shows
-              first. If they both show at once they choose a baton and random.
+              first. So I essentially have a mechanism to listen to multiple Channels
+               and take action deoending on which oince is readable fist. If they both show at once they choose a baton and random.
               And depending on whether they get the gold baton or the silver
               baton they run in a different direction
             </p>
@@ -767,7 +822,7 @@ export default class Presentation extends React.Component {
         </DefinitionSlide>
         <SimpleSlide statement="Looking at CSP in GO">
           <Notes>
-            So let's look at how CSP actually works in practice, using Go as a
+            So let's abandon our relay race and take a look at how CSP actually works in practice, using Go as a
             concrete implementation
           </Notes>
         </SimpleSlide>
@@ -780,15 +835,15 @@ export default class Presentation extends React.Component {
                 before, just suspend your disbelief.
                 <br />
                 Our goal here is to launch two processes, <br />
-                have one send a message to a channel, <br />
+                have one write to a channel, <br />
                 have another read from the channel
                 <br />
                 and then have them both notify the parent process that they're
-                done
+                done so that the program can terminate.
               </p>
               <p>
                 This is our read function -- it takes a channel to read a string
-                from, and a channel to notify the parent it's done. <br />
+                from - notice that the channel is typed, and a channel to notify the parent it's done. <br />
                 Note that in go channels are typed, and we use an empty "struct"
                 when we don't need to really transmit data but just want to say
                 something happened
@@ -841,9 +896,10 @@ export default class Presentation extends React.Component {
           statement="Synchronous Channels = Coordination"
         >
           <Notes>
-            Every read and write to a channel is synchronous. If you write to a
+            Every read and write to a channel is synchronous.  If you write to a
             channel, it will block until someone else reads. The result of this,
-            as you start to see in the example, is you can use channels to
+            as you start to see in the example, is you have pretty fine grained control over
+            the work being done and so you can use channels to
             produce fairly predictable behavior, if that's what you want
           </Notes>
         </SimpleSlide>
@@ -852,10 +908,12 @@ export default class Presentation extends React.Component {
           notes={
             <div>
               <p>
-                Let's look at Go's implementation of choice, and why we might
+                Let's look at Go's implementation of choice using a key word called select,
+                 and why we might
                 want to use it. Our scenario here is we're waiting for two
                 parallel blocking operations -- say reading user input and
                 waiting for a network request to complete.
+                And depending on which one finishes first we need to do a differnt thing
               </p>
               <p>
                 So here we have two channels representing input coming back from
@@ -894,7 +952,7 @@ export default class Presentation extends React.Component {
             { loc: [26, 33], note: 'FYI: Generate a delayed function' },
             {
               loc: [14, 16],
-              note: 'Kick off operations in parallel'
+              note: 'Kick off operations in parallel 8j'
             },
             {
               loc: [16, 24],
@@ -918,6 +976,8 @@ export default class Presentation extends React.Component {
               The first word I see here is "thread", which is interesting cause
               CSP usually talks about processes
             </p>
+            <p>no we are actually talking about threads here cause they
+              share memory - and guess what </p>
             <p>And that's not by mistake cause...</p>
           </Notes>
         </QuoteSlide>
@@ -926,32 +986,73 @@ export default class Presentation extends React.Component {
           title="Goroutines Share Memory"
           image="britney.gif"
           text="*stares Britnely*"
-        />
+        ><Notes>
+          <p>Go routines share memory</p>
+          <p>They have access to the same data</p>
+          <p>so that is a bit odd</p>
+        </Notes>
+        </ImageSlide>
         <SimpleSlide inverted statement="But wait there's more..." />
         <ConceptSlide
           inverted
           fit={false}
           concept="Sync Package"
           description="All the thread sync primitives, in Go!"
-        />
+        ><Notes>
+          <p>There is this library in go called sync</p>
+          <p>And what you get with sync is all of the locking mechanisms
+            that you would normally get with threaded programming
+          </p>
+          <p>
+            So you end up with this kind of choose your own adventure in go - where you
+            could do this really regimented CSP based model for coordinating work or you could
+            just decide to start using mutexes.
+          </p>
+
+        </Notes>
+        </ConceptSlide>
         <QuoteSlide
           inverted
           cite="Go Docs"
           quote="Do not communicate by sharing memory; instead, share memory by communicating."
-        />
+        >
+          <Notes>
+            <p>
+              But fortunately the go docs also provide really clear documentation
+              on how you should do it - they say do not communicate by sharing memory. Share
+              memory by communicating. The thing that we all want
+            </p>
+          </Notes>
+
+        </QuoteSlide>
         <QuoteSlide
           inverted
           textSize="3rem"
           cite="Also Go Docs"
           quote="This approach can be taken too far. Reference counts may be best done by putting a mutex around an integer variable, for instance. But as a high-level approach, using channels to control access makes it easier to write clear, correct programs."
-        />
+        ><Notes>
+          <p>
+            Except in the next sentence they say - but maybe not - maybe if its simpler to used
+            a mutex just use a mutex. So they kind of give you the kitchen sink of all the options.
+          </p>
+        </Notes>
+
+        </QuoteSlide>
         <ConceptSlide
           inverted
           concept="Other Go Fun Fact"
           description="Go Routines Are Scheduled Cooperatively!"
         >
           <Notes>
-            One more fun fact about Go -- Go Routines have to explicitly or
+            One more fun fact about Go -- Go routines are scheudled - but they
+            are scheduled using cooperative scheduling. What that means is when
+            your go routing is running there are basically certain types of statements
+            it has to hit in order for go to interrupt it and switch to another go
+            routine. And you can essentially write a go routing that doesn't hit
+            any of those statments and essentially can block the whole program.
+            And that is unfortunate.
+
+             Go Routines have to explicitly or
             implicitly give up control in order for another go routine to get
             scheduled. It's not like erlang where the scheduler allocates work
             for a process and then forcibly takes away control automatically.
@@ -967,19 +1068,35 @@ export default class Presentation extends React.Component {
             picture of the rationale for Go's decisions
           </Notes>
         </ImageSlide>
-        <SimpleSlide inverted statement="Go compiles to native code" />
-        <SimpleSlide inverted statement="Go run-time is small (2MB)" />
+        <SimpleSlide inverted statement="Go compiles to native code" ></SimpleSlide>
+        <Notes>
+          <p>you compile your go program to actualy native code - you compile your go program down to actual
+            machine code.
+          </p>
+        </Notes>
+        <SimpleSlide inverted statement="Go run-time is small (2MB)">
+          <Notes>
+            <p>If you compile a hello world down to an exectuable on your machine it will be about 2MB large - thats
+              about twice the size of a C program.
+
+              By contrast I actually created a hello world using mix and created a release to create the Smallest
+              exectuable for a mix project and it was about 20MB. It is probably
+              possibly to get it smaller. But it is still larger than the go executable.
+              </p>
+          </Notes>
+        </SimpleSlide>
         <SimpleSlide
           inverted
           statement="Go is (almost) a systems programming language"
         >
           <Notes>
-            And this gets to the core design goal of Go. Go is designed to be a
+            And this is the underlying thing. Go is meant to be a systems programming
+            language. Go is designed to be a
             replacement in many cases for C. It is garbage collected, so you
             wouldn't neccesarily write your operating system in Go, but it's
             designed to cover most of the other applications you'd write a
-            program in C with. But it's also flexible and easy enough to work
-            with that you can write a web server with it.
+            program in C with - like native app programming. But it's also flexible and easy enough to work
+            with that you can use it for a number of use cases - including writing a web server with it.
           </Notes>
         </SimpleSlide>
         <ListSlide
@@ -993,19 +1110,24 @@ export default class Presentation extends React.Component {
               of decisions were made.
             </p>
             <p>
-              Go is designed to be easy to adopt -- you can learn the basic
+              First Go is designed to be easy to adopt - particularly for C programmers
+              -- you can learn the basic
               syntax and concepts quickly. It's a pretty flexible language with
-              not a ton of convention.
-            </p>
-            <p>
-              It's small and fast -- go includes almost none of the higher level
+              not a ton of convention. go includes almost none of the higher level
               concurrency primitives that Erlang has -- Supervisors, GenServers,
-              etc
+              etc. It also have concepts you may be familiar with if you have done threaded programming.
+               SO it is easy to adopt. You can learn it in a day
             </p>
             <p>
-              And as a result it's flexible and can be adapted to a wide variety
-              of use cases, with the caveat that you might need to bring some
-              extra libraries to the table if you need higher level conventions
+              It's fast - They are trying to make a language that can run in the same
+              scenarios that a C program can run.
+            </p>
+            <p>
+              Lastly -
+              And as a result it's designed to be flexible in a number of use cases.
+              They take this choose your own adventure approach so you can figure
+              out how you want to do things given your particular use case. Whether you
+              are writing a web server or a command line program
             </p>
           </Notes>
         </ListSlide>
@@ -1066,14 +1188,14 @@ export default class Presentation extends React.Component {
           description="Process Identity"
         >
           <Notes>
-            <p>But there are some differences</p>
+            <p> Now I want to talk about the fundamental differences</p>
             <p>
               The first key difference is identity. Actor Model processes have
-              identities -- in Erlang you get a process id and you can refer to
-              it directly
+              have independent identities -- in Erlang you get a process id and you can refer to
+              it directly.
             </p>
             <p>
-              CSP processes are largely anonymous. Once you create a go routine
+              In CSP processes are largely anonymous. Once you create a go routine
               there's no direct way to refer to it
             </p>
           </Notes>
@@ -1085,19 +1207,22 @@ export default class Presentation extends React.Component {
           description="Direct communication vs channels"
         >
           <Notes>
+            <p> Because of that there is this other difference in how the processes
+              communicate
+            </p>
             <p>
-              Because CSP processes are anonymous, they don't communicate
-              directly
+              Because CSP processes are anonymous and they have no identity, they don't communicate
+              directly, but rather use an intermediary - this ebing channe;
             </p>
             <p>
               And this is the second big difference -- if I want to communicate
               with an actor process, I send it a message
             </p>
-            <p>
+            {/* <p>
               In CSP on the other hand I communicate with channels, and they get
               read by whatever process is listening
-            </p>
-            <p>So there's a layer of indirection</p>
+            </p> */}
+            <p>So there's a layer of indirection in CSP that is not present in the Actor model</p>
           </Notes>
         </ConceptSlide>
         <ConceptSlide
@@ -1108,7 +1233,9 @@ export default class Presentation extends React.Component {
         >
           <Notes>
             <p>
-              Finally, CSP messages are synchronous-- they get read immediately.
+              Finally, the last and maybe most important differnce is that
+              CSP messages are synchronous-- as soon as you send a message you have
+              to wait for someone to read it.
               That's really different than the actor model where messages are
               completely asynchronous
             </p>
@@ -1147,13 +1274,26 @@ export default class Presentation extends React.Component {
             '+ Channel For Receiving',
             '= Asynchronous Message Passing'
           ]}
-        />
+        ><Notes><p>
+            Well it's not that hard. This would not work for a distributed system
+            but locally you can justhave a message queue process. What that will do is have
+            a channel on which you can send messages - and that process will just read all those messages
+            that get sent and put them in some kind of buffer. Then you
+            have another channel for receiving messages - and anyone receiving on that channel
+            will just get those messages when they come out. It is not that complicated and you
+            can get some asynchronous message passing that way.
+
+          </p></Notes></ListSlide>
 
         <DefinitionSlide
           inverted
           term="Building An Unbounded Channel In Go"
           definition="https://medium.com/capital-one-tech/building-an-unbounded-channel-in-go-789e175cd2cd"
-        />
+        ><Notes><p>
+            There are a couple more steps to this - but there is a great kind of canonical
+            blog post about that will show you how to build an unbounded asynchronous message channel
+            in go. So you have these tools to make things a bit simpler.
+          </p></Notes></DefinitionSlide>
         <CodeSlide
           bgColor={colors.quartenary}
           notes={
