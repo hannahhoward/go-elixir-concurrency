@@ -45,11 +45,11 @@ const AboutMeSlide = ({ children }) => {
 
   return (
     <FullScreen column>
-      <Row style={{ flexShrink: 0 }}>
-        <Heading size={1} fit caps lineHeight={1} textColor="quartenary">
+      {/* <Row style={{ flexShrink: 0 }}>
+        <Heading size={1}  fit caps lineHeight={1} textColor="quartenary">
           Anna
         </Heading>
-      </Row>
+      </Row> */}
       <Row>
         <Appear order={0}>
           <Column>

@@ -1068,12 +1068,14 @@ export default class Presentation extends React.Component {
             picture of the rationale for Go's decisions
           </Notes>
         </ImageSlide>
-        <SimpleSlide inverted statement="Go compiles to native code" ></SimpleSlide>
+        <SimpleSlide inverted statement="Go compiles to native code" >
         <Notes>
           <p>you compile your go program to actualy native code - you compile your go program down to actual
             machine code.
           </p>
         </Notes>
+        </SimpleSlide>
+
         <SimpleSlide inverted statement="Go run-time is small (2MB)">
           <Notes>
             <p>If you compile a hello world down to an exectuable on your machine it will be about 2MB large - thats
