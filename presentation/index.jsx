@@ -903,7 +903,7 @@ export default class Presentation extends React.Component {
             produce fairly predictable behavior, if that's what you want
           </Notes>
         </SimpleSlide>
-        <CodeSlide
+        {/* <CodeSlide
           bgColor={colors.quartenary}
           notes={
             <div>
@@ -959,7 +959,7 @@ export default class Presentation extends React.Component {
               note: 'Read from both channels as soon as they are ready'
             }
           ]}
-        />
+        /> */}
         <SimpleSlide statement="How go implements CSP" />
         <QuoteSlide
           inverted
@@ -1296,7 +1296,7 @@ export default class Presentation extends React.Component {
             blog post about that will show you how to build an unbounded asynchronous message channel
             in go. So you have these tools to make things a bit simpler.
           </p></Notes></DefinitionSlide>
-        <CodeSlide
+        {/* <CodeSlide
           bgColor={colors.quartenary}
           notes={
             <div>
@@ -1378,14 +1378,14 @@ export default class Presentation extends React.Component {
             { loc: [45, 55], note: 'Run loop' },
             { loc: [56, 67], note: 'Message handlers' }
           ]}
-        />
+        /> */}
 
-        <DefinitionSlide
+        {/* <DefinitionSlide
           inverted
           term="How do we implement channels in Elixir?"
-        />
+        /> */}
 
-        <CodeSlide
+        {/* <CodeSlide
           bgColor={colors.quartenary}
           notes={<div />}
           lang="elixir"
@@ -1413,7 +1413,7 @@ export default class Presentation extends React.Component {
             { loc: [70, 72], note: 'block if queue full' },
             { loc: [74, 76], note: 'return when queue updated' }
           ]}
-        />
+        /> */}
 
         <SimpleSlide statement="Conclusions">
         <Notes>
